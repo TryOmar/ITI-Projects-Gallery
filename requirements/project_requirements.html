@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ITI Projects Gallery - Technical Requirements Document</title>
+    <style>
+        @page {
+            margin: 25mm;
+            size: A4;
+        }
+
+        @media print {
+            body {
+                margin: 0;
+                padding: 0;
+            }
+            
+            .page-break {
+                page-break-before: always;
+            }
+            
+            .no-break {
+                page-break-inside: avoid;
+            }
+            
+            h1, h2, h3 {
+                page-break-after: avoid;
+            }
+            
+            table {
+                page-break-inside: avoid;
+            }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            line-height: 1.8;
+            color: #000;
+            background: #fff;
+            font-size: 11pt;
+        }
+
+        .container {
+            max-width: 210mm;
+            margin: 0 auto;
+            padding: 0;
+        }
+
+        h1 {
+            font-size: 20pt;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 8mm;
+            margin-top: 5mm;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-bottom: 2px solid #000;
+            padding-bottom: 4mm;
+        }
+
+        h2 {
+            font-size: 14pt;
+            font-weight: bold;
+            margin-top: 8mm;
+            margin-bottom: 4mm;
+            text-transform: uppercase;
+            border-bottom: 1px solid #000;
+            padding-bottom: 2mm;
+        }
+
+        h3 {
+            font-size: 12pt;
+            font-weight: bold;
+            margin-top: 6mm;
+            margin-bottom: 3mm;
+        }
+
+        h4 {
+            font-size: 11pt;
+            font-weight: bold;
+            margin-top: 4mm;
+            margin-bottom: 2mm;
+            font-style: italic;
+        }
+
+        p {
+            margin-bottom: 3mm;
+            text-align: justify;
+        }
+
+        ul, ol {
+            margin-left: 10mm;
+            margin-bottom: 4mm;
+        }
+
+        li {
+            margin-bottom: 2mm;
+        }
+
+        ul ul, ol ul {
+            margin-top: 2mm;
+            margin-bottom: 2mm;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 4mm 0 6mm 0;
+            font-size: 10pt;
+        }
+
+        th, td {
+            border: 1px solid #000;
+            padding: 3mm;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        th {
+            background-color: #f0f0f0;
+            font-weight: bold;
+        }
+
+        .section {
+            margin-bottom: 6mm;
+        }
+
+        .spec-box {
+            border: 1px solid #000;
+            padding: 4mm;
+            margin: 4mm 0;
+            background: #fafafa;
+        }
+
+        code {
+            font-family: 'Courier New', monospace;
+            font-size: 10pt;
+            background: #f5f5f5;
+            padding: 1mm 2mm;
+            border: 1px solid #ddd;
+        }
+
+        .meta-info {
+            text-align: center;
+            margin-bottom: 8mm;
+            font-size: 10pt;
+        }
+
+        strong {
+            font-weight: bold;
+        }
+
+        .indent {
+            margin-left: 8mm;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #000;
+            margin: 6mm 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>ITI Projects Gallery</h1>
+        <div class="meta-info">
+            <strong>Technical Requirements Document</strong><br>
+            Version 1.0<br>
+            Document Date: December 2024
+        </div>
+
+        <div class="section no-break">
+            <h2>1. Project Overview</h2>
+            <p>ITI Projects Gallery is a web-based gallery system designed to showcase projects created by ITI students during their 9-month training program. The system is architected to provide maximum ease of use for project submission and editing while maintaining a lightweight infrastructure without traditional backend requirements.</p>
+            
+            <p>The system leverages HTML, CSS, and JavaScript for the frontend interface, with Google Sheets and Google Apps Script serving as the backend infrastructure and API layer respectively.</p>
+        </div>
+
+        <div class="section no-break">
+            <h2>2. Project Objectives</h2>
+            <ol>
+                <li>Enable ITI students to submit their projects through a simple web interface</li>
+                <li>Provide students with the ability to edit their own project submissions post-submission</li>
+                <li>Display all approved projects in a publicly accessible gallery interface</li>
+                <li>Maintain a lightweight backend infrastructure using only Google Sheets</li>
+                <li>Implement admin moderation capabilities without complex role-based access control systems</li>
+            </ol>
+        </div>
+
+        <div class="section no-break">
+            <h2>3. Technology Stack</h2>
+            
+            <h3>3.1 Frontend Technologies</h3>
+            <ul>
+                <li>HTML5</li>
+                <li>CSS3</li>
+                <li>JavaScript (Vanilla JavaScript or lightweight framework)</li>
+            </ul>
+
+            <h3>3.2 Backend Infrastructure</h3>
+            <ul>
+                <li>Google Sheets (serves as database layer)</li>
+                <li>Google Apps Script (serves as API layer)</li>
+            </ul>
+
+            <h3>3.3 Hosting Platform</h3>
+            <ul>
+                <li>Static hosting service (GitHub Pages, Netlify, or equivalent)</li>
+            </ul>
+        </div>
+
+        <div class="page-break"></div>
+
+        <div class="section">
+            <h2>4. System Architecture</h2>
+            
+            <h3>4.1 Application Pages</h3>
+            <p>The system consists of five HTML pages, three required and two optional:</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Page Name</th>
+                        <th>Filename</th>
+                        <th>Status</th>
+                        <th>Primary Function</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Gallery Page</td>
+                        <td><code>index.html</code></td>
+                        <td>Required</td>
+                        <td>Display all visible projects</td>
+                    </tr>
+                    <tr>
+                        <td>Submission Page</td>
+                        <td><code>submit.html</code></td>
+                        <td>Required</td>
+                        <td>Submit new projects</td>
+                    </tr>
+                    <tr>
+                        <td>Edit Page</td>
+                        <td><code>edit.html</code></td>
+                        <td>Required</td>
+                        <td>Edit existing projects</td>
+                    </tr>
+                    <tr>
+                        <td>Admin Page</td>
+                        <td><code>admin.html</code></td>
+                        <td>Optional</td>
+                        <td>Moderate project visibility</td>
+                    </tr>
+                    <tr>
+                        <td>About Page</td>
+                        <td><code>about.html</code></td>
+                        <td>Optional</td>
+                        <td>System documentation</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="page-break"></div>
+
+        <div class="section">
+            <h2>5. Page Specifications</h2>
+
+            <h3 class="no-break">5.1 Gallery Page (index.html)</h3>
+            <div class="no-break">
+                <h4>Purpose</h4>
+                <p>Display all projects marked as visible in the public gallery interface.</p>
+
+                <h4>Functional Requirements</h4>
+                <ul>
+                    <li>Fetch project data from Google Sheets via Google Apps Script API</li>
+                    <li>Display only projects where the Visible field is set to TRUE</li>
+                    <li>Render project information in card format</li>
+                    <li>Implement filtering mechanisms by Status, Framework, and Team Member</li>
+                    <li>Provide search functionality across project data</li>
+                </ul>
+
+                <h4>Project Card Display Elements</h4>
+                <ul>
+                    <li>Project Title</li>
+                    <li>Team Members (displayed as GitHub handles)</li>
+                    <li>Project Description</li>
+                    <li>Status Badge (Not Started, In Progress, Completed)</li>
+                    <li>Frameworks and Technology Stack</li>
+                    <li>Links (Demo, GitHub Repository, Application URL)</li>
+                    <li>Screenshot (optional)</li>
+                </ul>
+
+                <h4>User Interface Components</h4>
+                <ul>
+                    <li>Filter controls for Status, Framework, and Team Member</li>
+                    <li>Search bar for text-based queries</li>
+                    <li>Responsive card grid layout</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="page-break"></div>
+
+        <div class="section">
+            <h3 class="no-break">5.2 Project Submission Page (submit.html)</h3>
+            <div class="no-break">
+                <h4>Purpose</h4>
+                <p>Provide an interface for students to submit new project entries to the system.</p>
+
+                <h4>Form Fields Specification</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Field Name</th>
+                            <th>Type</th>
+                            <th>Required</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Project Title</td>
+                            <td>Text Input</td>
+                            <td>Yes</td>
+                            <td>Name of the project</td>
+                        </tr>
+                        <tr>
+                            <td>Team Members</td>
+                            <td>Text Input</td>
+                            <td>No</td>
+                            <td>GitHub handles of team members</td>
+                        </tr>
+                        <tr>
+                            <td>Description</td>
+                            <td>Textarea</td>
+                            <td>No</td>
+                            <td>Project description</td>
+                        </tr>
+                        <tr>
+                            <td>Demo/GitHub/App Link</td>
+                            <td>URL Input</td>
+                            <td>No</td>
+                            <td>Project-related URLs</td>
+                        </tr>
+                        <tr>
+                            <td>Frameworks/Tech Stack</td>
+                            <td>Text Input</td>
+                            <td>No</td>
+                            <td>Technologies used</td>
+                        </tr>
+                        <tr>
+                            <td>Status</td>
+                            <td>Dropdown</td>
+                            <td>Yes</td>
+                            <td>Not Started, In Progress, Completed</td>
+                        </tr>
+                        <tr>
+                            <td>Screenshot</td>
+                            <td>File/URL Input</td>
+                            <td>No</td>
+                            <td>Project screenshot</td>
+                        </tr>
+                        <tr>
+                            <td>Email</td>
+                            <td>Email Input</td>
+                            <td>No</td>
+                            <td>Contact email for editing rights</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h4>Submission Process</h4>
+                <ol>
+                    <li>User completes and submits the form</li>
+                    <li>JavaScript validates form data client-side</li>
+                    <li>Data is transmitted to Google Apps Script via fetch/AJAX</li>
+                    <li>Apps Script appends new row to Google Sheet</li>
+                    <li>Success or error message displayed to user</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="page-break"></div>
+
+        <div class="section">
+            <h3 class="no-break">5.3 Project Edit Page (edit.html)</h3>
+            <div class="no-break">
+                <h4>Purpose</h4>
+                <p>Allow students to modify their existing project submissions.</p>
+
+                <h4>Project Identification</h4>
+                <p>Projects can be identified using one of the following methods:</p>
+                <ul>
+                    <li>Email address + Project Title (alternative method)</li>
+                    <li>Unique Project ID (recommended method)</li>
+                </ul>
+
+                <h4>Functional Requirements</h4>
+                <ul>
+                    <li>Provide input fields for project identification</li>
+                    <li>Fetch existing project data from Google Sheet via Apps Script</li>
+                    <li>Pre-populate form fields with current project data</li>
+                    <li>Submit updated data via Apps Script</li>
+                    <li>Update existing row in Google Sheet (not append new row)</li>
+                    <li>Display confirmation message upon successful update</li>
+                </ul>
+
+                <h4>Edit Process Flow</h4>
+                <ol>
+                    <li>User enters project identification information</li>
+                    <li>System retrieves project data from Google Sheet</li>
+                    <li>Form fields are pre-populated with existing data</li>
+                    <li>User modifies desired fields</li>
+                    <li>User submits updated form</li>
+                    <li>System updates corresponding row in Google Sheet</li>
+                    <li>Confirmation displayed to user</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="page-break"></div>
+
+        <div class="section">
+            <h3 class="no-break">5.4 Admin Page (admin.html) - Optional</h3>
+            <div class="no-break">
+                <h4>Purpose</h4>
+                <p>Provide administrative interface for project moderation and visibility control.</p>
+
+                <h4>Functional Requirements</h4>
+                <ul>
+                    <li>Display complete list of all projects (including hidden projects)</li>
+                    <li>Toggle project visibility (TRUE/FALSE in Visible field)</li>
+                    <li>Delete projects (optional feature)</li>
+                    <li>Add administrative notes or reasons for hiding projects (optional)</li>
+                </ul>
+
+                <h4>Security Considerations</h4>
+                <p>For MVP implementation, the admin page can be secured using:</p>
+                <ul>
+                    <li>Secret URL (non-discoverable link)</li>
+                    <li>Simple password protection</li>
+                    <li>Note: Production implementation should use proper authentication</li>
+                </ul>
+            </div>
+
+            <h3 class="no-break">5.5 About Page (about.html) - Optional</h3>
+            <div class="no-break">
+                <h4>Purpose</h4>
+                <p>Provide documentation and information about the ITI Projects Gallery system.</p>
+
+                <h4>Content Requirements</h4>
+                <ul>
+                    <li>Explanation of the gallery's purpose and objectives</li>
+                    <li>Instructions for submitting projects</li>
+                    <li>Instructions for editing existing projects</li>
+                    <li>Contact information or support channels</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="page-break"></div>
+
+        <div class="section">
+            <h2>6. Database Schema</h2>
+            
+            <h3>6.1 Google Sheet Structure</h3>
+            <p>Each row in the Google Sheet represents a single project. The following columns must be implemented:</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Column Name</th>
+                        <th>Data Type</th>
+                        <th>Description</th>
+                        <th>Required</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Project ID</td>
+                        <td>String/Number</td>
+                        <td>Unique identifier for each project</td>
+                        <td>Yes</td>
+                    </tr>
+                    <tr>
+                        <td>Project Title</td>
+                        <td>String</td>
+                        <td>Name of the project</td>
+                        <td>Yes</td>
+                    </tr>
+                    <tr>
+                        <td>Team Members</td>
+                        <td>String</td>
+                        <td>GitHub handles of team members</td>
+                        <td>No</td>
+                    </tr>
+                    <tr>
+                        <td>Description</td>
+                        <td>Text</td>
+                        <td>Detailed project description</td>
+                        <td>No</td>
+                    </tr>
+                    <tr>
+                        <td>Demo / GitHub / App Link</td>
+                        <td>URL</td>
+                        <td>Links to project resources</td>
+                        <td>No</td>
+                    </tr>
+                    <tr>
+                        <td>Frameworks / Tech Stack</td>
+                        <td>String</td>
+                        <td>Technologies used in the project</td>
+                        <td>No</td>
+                    </tr>
+                    <tr>
+                        <td>Status</td>
+                        <td>Enum</td>
+                        <td>Not Started, In Progress, or Completed</td>
+                        <td>Yes</td>
+                    </tr>
+                    <tr>
+                        <td>Email</td>
+                        <td>Email</td>
+                        <td>Contact email for project editing</td>
+                        <td>No</td>
+                    </tr>
+                    <tr>
+                        <td>Screenshot URL</td>
+                        <td>URL</td>
+                        <td>Link to project screenshot</td>
+                        <td>No</td>
+                    </tr>
+                    <tr>
+                        <td>Visible?</td>
+                        <td>Boolean</td>
+                        <td>Controls public visibility (TRUE/FALSE)</td>
+                        <td>Yes</td>
+                    </tr>
+                    <tr>
+                        <td>Admin Notes</td>
+                        <td>Text</td>
+                        <td>Internal administrative comments</td>
+                        <td>No</td>
+                    </tr>
+                    <tr>
+                        <td>Created At</td>
+                        <td>Timestamp</td>
+                        <td>Date and time of project creation</td>
+                        <td>Yes</td>
+                    </tr>
+                    <tr>
+                        <td>Updated At</td>
+                        <td>Timestamp</td>
+                        <td>Date and time of last update</td>
+                        <td>Yes</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="page-break"></div>
+
+        <div class="section">
+            <h2>7. Project Status Values</h2>
+            <p>The Status field must accept exactly three predefined values:</p>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Status Value</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Not Started</td>
+                        <td>Project has not yet begun development</td>
+                    </tr>
+                    <tr>
+                        <td>In Progress</td>
+                        <td>Project is currently under active development</td>
+                    </tr>
+                    <tr>
+                        <td>Completed</td>
+                        <td>Project development has been finished</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section no-break">
+            <h2>8. Visibility Control Mechanism</h2>
+            <p>Project visibility in the public gallery is controlled by the Visible field in the Google Sheet:</p>
+            
+            <ul>
+                <li><strong>TRUE:</strong> Project is visible in the public gallery</li>
+                <li><strong>FALSE:</strong> Project is hidden from the public gallery</li>
+            </ul>
+
+            <p>The admin manually controls this field through the admin interface or directly in the Google Sheet.</p>
+        </div>
+
+        <div class="section no-break">
+            <h2>9. Edit Authorization Logic</h2>
+            <p>The system implements the following rules for project editing:</p>
+            
+            <ul>
+                <li>Users can edit only their own projects</li>
+                <li>Project ownership is verified using Email and Project ID</li>
+                <li>Google Apps Script performs the validation and authorization</li>
+                <li>Updates modify the existing row rather than creating a new entry</li>
+                <li>The gallery automatically reflects changes after Sheet updates</li>
+            </ul>
+        </div>
+
+        <div class="page-break"></div>
+
+        <div class="section">
+            <h2>10. System Advantages</h2>
+            <ul>
+                <li>Eliminates the need for traditional backend infrastructure or database servers</li>
+                <li>Minimal maintenance requirements</li>
+                <li>Students have complete control over their project information</li>
+                <li>Simple admin moderation without complex role-based access control</li>
+                <li>Straightforward migration path to traditional backend systems if needed</li>
+                <li>Zero hosting costs for backend infrastructure</li>
+                <li>Real-time updates without deployment procedures</li>
+            </ul>
+        </div>
+
+        <div class="section no-break">
+            <h2>11. Future Enhancement Opportunities</h2>
+            <p>The following features may be considered for future iterations:</p>
+            
+            <ul>
+                <li>Featured projects highlighting system</li>
+                <li>User engagement features (likes, ratings, comments)</li>
+                <li>Project categorization and taxonomy</li>
+                <li>Authentication using ITI institutional email addresses</li>
+                <li>Migration to full backend architecture (Node.js, Django, or similar)</li>
+                <li>Advanced search and filtering capabilities</li>
+                <li>Project analytics and statistics</li>
+                <li>Notification system for project updates</li>
+            </ul>
+        </div>
+
+        <div class="page-break"></div>
+
+        <div class="section">
+            <h2>12. Implementation Roadmap</h2>
+            
+            <h3>Phase 1: Backend Setup</h3>
+            <ol>
+                <li>Create Google Sheet with specified column structure</li>
+                <li>Develop Google Apps Script API endpoints (doGet and doPost methods)</li>
+                <li>Implement data validation and error handling in Apps Script</li>
+                <li>Test API endpoints with sample data</li>
+            </ol>
+
+            <h3>Phase 2: Frontend Development</h3>
+            <ol>
+                <li>Develop Gallery Page (index.html) with project display functionality</li>
+                <li>Implement Project Submission Page (submit.html) with form validation</li>
+                <li>Create Project Edit Page (edit.html) with data pre-population</li>
+                <li>Develop optional Admin Page (admin.html) if required</li>
+                <li>Create optional About Page (about.html) if required</li>
+            </ol>
+
+            <h3>Phase 3: Integration</h3>
+            <ol>
+                <li>Connect frontend pages to Google Apps Script API using fetch</li>
+                <li>Implement error handling and user feedback mechanisms</li>
+                <li>Add loading states and UI feedback</li>
+                <li>Test all data flows (create, read, update)</li>
+            </ol>
+
+            <h3>Phase 4: Deployment and Testing</h3>
+            <ol>
+                <li>Deploy static frontend to hosting platform</li>
+                <li>Perform end-to-end testing of all features</li>
+                <li>Test submission, edit, and visibility control workflows</li>
+                <li>Conduct user acceptance testing with sample users</li>
+                <li>Document any issues and implement fixes</li>
+            </ol>
+
+            <h3>Phase 5: Launch</h3>
+            <ol>
+                <li>Prepare user documentation and guidelines</li>
+                <li>Launch system to ITI students</li>
+                <li>Monitor system performance and user feedback</li>
+                <li>Implement iterative improvements based on feedback</li>
+            </ol>
+        </div>
+
+        <div class="section no-break">
+            <h2>13. Technical Notes</h2>
+            
+            <h3>13.1 Google Apps Script API</h3>
+            <p>The Apps Script must implement the following endpoints:</p>
+            <ul>
+                <li><strong>doGet:</strong> Retrieve project data (with visibility filtering)</li>
+                <li><strong>doPost:</strong> Handle project submissions and updates</li>
+            </ul>
+
+            <h3>13.2 CORS Configuration</h3>
+            <p>Ensure Google Apps Script is configured to accept requests from the deployed frontend domain.</p>
+
+            <h3>13.3 Data Validation</h3>
+            <p>Implement validation on both client-side (JavaScript) and server-side (Apps Script) to ensure data integrity.</p>
+
+            <h3>13.4 Error Handling</h3>
+            <p>All API calls must include proper error handling with user-friendly error messages.</p>
+        </div>
+
+        <hr>
+        <p style="text-align: center; font-size: 9pt; margin-top: 8mm;">
+            <strong>End of Technical Requirements Document</strong>
+        </p>
+    </div>
+</body>
+</html>
