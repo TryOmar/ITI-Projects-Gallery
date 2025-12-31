@@ -1,0 +1,150 @@
+* {
+    margin: 2px;
+    font-family: Inter, -apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif;
+}
+
+body {
+    background-color: #f4f9ff;
+}
+
+.main-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 60%;
+    margin-left: 5%;
+    margin-right: 5%;
+    left: calc((100% - 10% - 60%) / 2);
+    position: relative;
+    background-color: #ffffff;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+
+.title {
+    text-align: center;
+    color: #f8fbff;
+    width: 100%;
+    background: linear-gradient(to left, rgb(114 106 223) 22%, rgb(71 119 245) 68%);
+}
+
+.title * {
+    margin: 1%;
+}
+
+.input-title {
+    border-bottom: solid #eee 1px;
+}
+
+.submit-form {
+    width: 100%;
+}
+
+.row {
+    display: flex;
+    margin-bottom: 10px;
+    width: 95%;
+    justify-content: space-around;
+
+}
+
+label {
+    display: block;
+    text-decoration: solid;
+}
+
+
+input,
+select,
+textarea {
+    padding: 5px;
+    border: 1px solid #b8b8b8;
+    border-radius: 5px;
+    margin-top: 5px;
+    outline: none;
+}
+
+input:focus,
+textarea:focus {
+    border-color: #4e54c8;
+}
+
+#status-input,
+#title-input {
+    width: 100%;
+}
+
+.status-input,
+.title-input {
+    flex: 50%;
+}
+
+.Description-input {
+    width: 100%;
+}
+
+#Description-input {
+    height: 70px;
+    width: 100%;
+}
+
+.name-input,
+.email-input {
+    flex: 50%;
+}
+
+#email-input,
+#name-input {
+    width: 100%;
+}
+
+.url-input,
+.frameworks-input {
+    flex: 50%;
+}
+
+#url-input,
+#frameworks-input {
+    width: 100%;
+}
+
+input[type="submit"] {
+    background: linear-gradient(to left, rgb(114 106 223) 22%, rgb(71 119 245) 68%);
+    width: 30%;
+    color: #f8fbff;
+}
+
+.button-65 {
+    appearance: none;
+    backface-visibility: hidden;
+    background-color: #2f80ed;
+    border-radius: 10px;
+    border-style: none;
+    box-shadow: none;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    letter-spacing: normal;
+    outline: none;
+    overflow: hidden;
+    padding: 4px 4px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    transform: translate3d(0, 0, 0);
+    transition: all .3s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: top;
+}
+
+.button-65:hover {
+    background-color: #1366d6;
+    box-shadow: rgba(0, 0, 0, .05) 0 5px 30px, rgba(0, 0, 0, .05) 0 1px 4px;
+    opacity: 1;
+    transform: translateY(0);
+    transition-duration: .35s;
+}
