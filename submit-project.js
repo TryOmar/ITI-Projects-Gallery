@@ -287,7 +287,13 @@ function removeLoadingState() {
  */
 function showSuccess(projectId) {
     hideAlerts();
-    successMessage.textContent = `Your project has been successfully submitted with ID: ${projectId}. Thank you for your contribution!`;
+    successMessage.innerHTML = `
+        Your project has been successfully submitted!<br><br>
+        <strong style="font-size: 1.2em; color: #2563eb;">Project ID: ${projectId}</strong><br><br>
+        <strong>⚠️ IMPORTANT: Save this Project ID!</strong><br>
+        You will need this ID if you want to edit or update your project in the future.<br>
+        Please copy and store it in a safe place.
+    `;
     successAlert.classList.add('visible');
 
     // Scroll to success message
