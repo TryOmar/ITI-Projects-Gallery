@@ -1,0 +1,82 @@
+[
+    {
+        "id": 1,
+        "title": "E-Commerce Platform",
+        "status": "completed",
+        "frameworks": ["React", "Node.js", "MongoDB"],
+        "image": "./projectModal/ChatGPT Image Dec 18, 2025, 11_30_45 PM.png",
+        "description": "A full-stack e-commerce platform with shopping cart, payment integration, and user authentication. Features include product catalog, order management, and admin dashboard.",
+        "teamMembers": [
+            {
+                "name": "Sarah Johnson",
+                "githubLink": "https://github.com/sarahjohnson",
+                "image": "/projectModal/ChatGPT Image Dec 18, 2025, 11_30_45 PM.png"
+            },
+            {
+                "name": "Mike Chen",
+                "githubLink": "https://github.com/mikechen",
+                "image": "/projectModal/ChatGPT Image Dec 18, 2025, 11_30_45 PM.png"
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "title": "Task Management App",
+        "status": "inProgress",
+        "frameworks": ["Vue.js", "Firebase", "CSS"],
+        "image": "./projectCard/Screenshot 2025-05-20 141204.png",
+        "description": "A collaborative task management application with real-time updates, team collaboration features, and progress tracking. Includes drag-and-drop functionality and notification system.",
+        "teamMembers": [
+            {
+                "name": "Alex Martinez",
+                "githubLink": "https://github.com/alexmartinez",
+                "image": "/projectModal/ChatGPT Image Dec 18, 2025, 11_30_45 PM.png"
+            },
+            {
+                "name": "Emily Brown",
+                "githubLink": "https://github.com/emilybrown",
+                "image": "/projectModal/ChatGPT Image Dec 18, 2025, 11_30_45 PM.png"
+            },
+            {
+                "name": "David Lee",
+                "githubLink": "https://github.com/davidlee",
+                "image": "/projectModal/ChatGPT Image Dec 18, 2025, 11_30_45 PM.png"
+            }
+        ]
+    },
+    {
+        "id": 3,
+        "title": "Weather Dashboard",
+        "status": "planning",
+        "frameworks": ["HTML", "JavaScript", "CSS"],
+        "image": "./projectCard/image.png",
+        "description": "An interactive weather dashboard that displays current weather conditions, forecasts, and historical data. Features include location search, weather alerts, and data visualization with charts.",
+        "teamMembers": [
+            {
+                "name": "Lisa Wang",
+                "githubLink": "https://github.com/lisawang",
+                "image": "/projectModal/ChatGPT Image Dec 18, 2025, 11_30_45 PM.png"
+            }
+        ]
+    },
+    {
+        "id": 4,
+        "title": "Portfolio Website",
+        "status": "completed",
+        "frameworks": ["Next.js", "TypeScript", "Tailwind"],
+        "image": "projectCard/Screenshot 2024-05-25 225044.png",
+        "description": "A modern portfolio website with animations, project showcase, contact form, and blog integration. Optimized for performance and SEO.",
+        "teamMembers": [
+            {
+                "name": "James Wilson",
+                "githubLink": "https://github.com/jameswilson",
+                "image": "/projectModal/ChatGPT Image Dec 18, 2025, 11_30_45 PM.png"
+            },
+            {
+                "name": "Sophia Garcia",
+                "githubLink": "https://github.com/sophiagarcia",
+                "image": "/projectModal/ChatGPT Image Dec 18, 2025, 11_30_45 PM.png"
+            }
+        ]
+    }
+]

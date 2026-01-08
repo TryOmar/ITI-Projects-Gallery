@@ -1,0 +1,107 @@
+
+
+.project-card {
+    width: 35%;
+    height: 300px;
+    padding: 8px;
+    position: relative;
+    border-radius: 14px;
+
+    background-image: url("Screenshot\ 2024-05-25\ 225044.png");
+    background-size: 100% 100%;
+    background-position: center;
+
+    box-shadow: 0 20px 40px rgba(0,0,0,0.35);
+    transition: transform 0.3s ease;
+}
+
+.project-card:hover {
+    transform: scale(1.03);
+}
+
+.status-badge div {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+
+    padding: 4px 14px;
+    font-size: 13px;
+    border-radius: 20px;
+
+    background-color: aliceblue;
+    backdrop-filter: blur(10px);
+
+    border: 1px dashed rgba(53, 53, 53, 0.35);
+}
+
+
+.bottom-card {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    width: 96%;
+    height: 42px;
+    padding: 4px;
+    gap: 6px;
+
+    display: flex;
+    align-items: center;
+
+    border-radius: 10px;
+    background-color: aliceblue;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+
+}
+
+
+.bottom-card button {
+    width: 20%;
+    height: 100%;
+    border-radius: 8px;
+    border: none;
+    font-size: 14px;
+    cursor: pointer;
+    background-color: rgb(83, 85, 85);
+    color : whitesmoke ;
+}
+
+
+
+.bottom-card h6 {
+    flex: 1;
+    height: 100%;
+    margin: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 8px;
+    border: 1px rgba(141, 135, 135, 0.342) solid;
+}
+
+.main-fm{
+    position: absolute;
+    bottom: 65px;
+    right: 10px;
+    left: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 5px 10px;
+    border-radius: 10px;
+    max-width: calc(100% - 20px);
+}
+
+.main-fm .fm{
+    background-color: aliceblue;
+    padding: 5px 10px;
+    border-radius: 10px;
+    border: 1px dashed rgba(90, 88, 88, 0.301);
+    font-size: 13px;
+    white-space: nowrap;
+}
