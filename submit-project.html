@@ -9,7 +9,31 @@
 </head>
 
 <body>
-    <div class="main-container">
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-brand">
+                <img src="img/ITI.jpeg" alt="ITI Logo">
+                <span>ITI Projects</span>
+            </a>
+
+            <button class="navbar-toggle" id="navbar-toggle" aria-label="Toggle navigation">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5" />
+                </svg>
+            </button>
+
+            <ul class="navbar-nav" id="navbar-nav">
+                <li><a href="index.html" class="nav-link">Gallery</a></li>
+                <li><a href="submit-project.html" class="nav-link active">Submit Project</a></li>
+                <li><a href="edit.html" class="nav-link">Edit Project</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="main-container with-navbar">
         <!-- Header Section -->
         <header class="page-header">
             <h1>Submit Your Project</h1>
@@ -181,6 +205,7 @@
         </div>
     </div>
 
+    <script src="config.js"></script>
     <script src="submit-project.js"></script>
 </body>
 

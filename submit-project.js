@@ -4,9 +4,10 @@
  */
 
 // ===========================
-// Constants & Configuration
+// Configuration
 // ===========================
-const API_ENDPOINT = 'https://script.google.com/macros/s/AKfycby2zHkVnimyonJi0rF2AKtqHwfJFPfDLDQ2pgRN7vYaBy5dDojJyvTbMT-WycEFZm8/exec';
+// API configuration is now loaded from config.js (ApiService)
+// Make sure to include config.js before this script in your HTML
 
 const VALIDATION_RULES = {
     title: {
@@ -284,15 +285,42 @@ function removeLoadingState() {
 /**
  * Shows success alert with message
  * @param {string} projectId - The ID of the created project
+ * @param {string} email - The email used for submission
  */
-function showSuccess(projectId) {
+function showSuccess(projectId, email) {
     hideAlerts();
     successMessage.innerHTML = `
-        Your project has been successfully submitted!<br><br>
-        <strong style="font-size: 1.2em; color: #2563eb;">Project ID: ${projectId}</strong><br><br>
-        <strong>⚠️ IMPORTANT: Save this Project ID!</strong><br>
-        You will need this ID if you want to edit or update your project in the future.<br>
-        Please copy and store it in a safe place.
+        <div class="success-details">
+            <div class="success-info-card email-card">
+                <div class="info-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z"/>
+                    </svg>
+                </div>
+                <div class="info-content">
+                    <span class="info-label">Project linked to</span>
+                    <span class="info-value">${email}</span>
+                </div>
+            </div>
+            <p class="success-hint">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                    <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+                </svg>
+                Use this email on the <a href="edit.html">Edit page</a> to update your project anytime.
+            </p>
+            <div class="success-info-card id-card">
+                <div class="info-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM2 8a6 6 0 1 1 12 0A6 6 0 0 1 2 8zm6-5a2 2 0 1 0 0 4 2 2 0 0 0 0-4zM4.732 13.147a5.985 5.985 0 0 1-1.398-.632l.765-1.532a5.002 5.002 0 0 0 7.802 0l.765 1.532a5.985 5.985 0 0 1-1.398.632A7.996 7.996 0 0 1 8 14a7.996 7.996 0 0 1-3.268-.853z"/>
+                    </svg>
+                </div>
+                <div class="info-content">
+                    <span class="info-label">Project ID</span>
+                    <span class="info-value secondary">${projectId}</span>
+                </div>
+            </div>
+        </div>
     `;
     successAlert.classList.add('visible');
 
@@ -352,39 +380,15 @@ function resetForm() {
 // ===========================
 
 /**
- * Submits the form data to the API using POST with text/plain to avoid CORS preflight
+ * Submits the form data to the API
  * @param {Object} formData - Form data to submit
  * @returns {Promise<Object>} - API response
  */
 async function submitFormData(formData) {
     try {
-        // Send as POST with text/plain to avoid CORS preflight
-        const response = await fetch(API_ENDPOINT, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'text/plain'
-            },
-            body: JSON.stringify(formData)
-        });
-
-        // Parse response
-        const textResponse = await response.text();
-
-        // Try to parse as JSON
-        try {
-            const result = JSON.parse(textResponse);
-            return result;
-        } catch (e) {
-            // If not JSON, check if it's a success indicator
-            if (textResponse.includes('success') || response.ok) {
-                const idMatch = textResponse.match(/\d{6,}/);
-                return {
-                    success: true,
-                    id: idMatch ? idMatch[0] : 'unknown'
-                };
-            }
-            throw new Error('Unable to process server response. Please contact support.');
-        }
+        // Use the shared ApiService for submission
+        const result = await ApiService.createProject(formData);
+        return result;
     } catch (error) {
         // Handle network errors
         if (error.name === 'TypeError' && error.message === 'Failed to fetch') {
@@ -435,7 +439,7 @@ async function handleSubmit(event) {
 
         // Check if submission was successful
         if (result.success) {
-            showSuccess(result.id);
+            showSuccess(result.id, formData.email);
             resetForm();
         } else {
             // Handle API-level failure
@@ -522,8 +526,45 @@ function init() {
     // Initialize event listeners
     initializeEventListeners();
 
+    // Initialize navbar
+    initNavbar();
+
     // Log initialization
     console.log('Project submission form initialized');
+}
+
+/**
+ * Initialize navbar functionality
+ */
+function initNavbar() {
+    const navbar = document.getElementById('navbar');
+    const navbarToggle = document.getElementById('navbar-toggle');
+    const navbarNav = document.getElementById('navbar-nav');
+
+    if (!navbar) return;
+
+    // Scroll effect
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 20) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+    });
+
+    // Mobile toggle
+    if (navbarToggle && navbarNav) {
+        navbarToggle.addEventListener('click', () => {
+            navbarNav.classList.toggle('active');
+        });
+
+        // Close on link click
+        navbarNav.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                navbarNav.classList.remove('active');
+            });
+        });
+    }
 }
 
 // Initialize when DOM is fully loaded
