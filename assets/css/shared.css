@@ -790,3 +790,139 @@ body {
    Light Mode Only (Dark Mode Disabled)
    =========================== */
 /* Dark mode is intentionally disabled for consistent light theme */
+/* Button Loading State */
+.btn {
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.btn.loading {
+    color: transparent !important;
+    pointer-events: none;
+    cursor: wait;
+}
+
+.btn.loading::after {
+    content: '';
+    position: absolute;
+    width: 1.25em;
+    height: 1.25em;
+    top: 50%;
+    left: 50%;
+    margin-top: -0.625em;
+    margin-left: -0.625em;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    border-top-color: white;
+    animation: spin 0.8s linear infinite;
+}
+
+.btn-secondary.loading::after,
+.btn-outline.loading::after,
+.btn-ghost.loading::after {
+    border-color: rgba(0, 0, 0, 0.2);
+    border-top-color: var(--primary-color);
+}
+
+/* Toast/Feedback Improvements */
+.toast-container {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: var(--z-tooltip);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    pointer-events: none;
+}
+
+.toast {
+    background: var(--white);
+    padding: 1rem 1.5rem;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    min-width: 300px;
+    max-width: 400px;
+    animation: slideInRight 0.3s ease-out forwards;
+    pointer-events: auto;
+    border-left: 4px solid transparent;
+}
+
+.toast.success {
+    border-left-color: var(--success-color);
+}
+
+.toast.error {
+    border-left-color: var(--error-color);
+}
+
+.toast.info {
+    border-left-color: var(--info-color);
+}
+
+.toast-icon {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+}
+
+.toast.success .toast-icon { color: var(--success-color); }
+.toast.error .toast-icon { color: var(--error-color); }
+.toast.info .toast-icon { color: var(--info-color); }
+
+.toast-content {
+    flex: 1;
+}
+
+.toast-title {
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    color: var(--text-primary);
+}
+
+.toast-message {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideOutRight {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+}
+
+
+/* Fix for button icon alignment */
+.btn {
+    white-space: nowrap;
+}
+
+.btn svg {
+    display: block;
+    flex-shrink: 0;
+}
+
+/* Fix for success hint text flow */
+.success-hint span {
+    flex: 1;
+}
+

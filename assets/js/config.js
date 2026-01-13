@@ -366,6 +366,71 @@ const Utils = {
             clearTimeout(timeout);
             timeout = setTimeout(later, wait);
         };
+    },
+
+    /**
+     * Shows a feedback toast message
+     * @param {string} message - Message text
+     * @param {string} type - 'success', 'error', 'info'
+     * @param {number} duration - Duration in ms
+     */
+    showToast(message, type = 'success', duration = 3000) {
+        // Create container if not exists
+        let container = document.querySelector('.toast-container');
+        if (!container) {
+            container = document.createElement('div');
+            container.className = 'toast-container';
+            document.body.appendChild(container);
+        }
+
+        // Create toast element
+        const toast = document.createElement('div');
+        toast.className = `toast ${type}`;
+
+        let iconHtml = '';
+        if (type === 'success') iconHtml = '<svg class="toast-icon" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>';
+        else if (type === 'error') iconHtml = '<svg class="toast-icon" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/></svg>';
+        else iconHtml = '<svg class="toast-icon" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/></svg>';
+
+        toast.innerHTML = `
+            ${iconHtml}
+            <div class="toast-content">
+                <div class="toast-title">${type.charAt(0).toUpperCase() + type.slice(1)}</div>
+                <div class="toast-message">${message}</div>
+            </div>
+        `;
+
+        // Add to container
+        container.appendChild(toast);
+
+        // Remove after duration
+        setTimeout(() => {
+            toast.style.animation = 'slideOutRight 0.3s ease-in forwards';
+            setTimeout(() => {
+                toast.remove();
+                if (container.children.length === 0) {
+                    container.remove();
+                }
+            }, 300);
+        }, duration);
+    },
+
+    /**
+     * Toggles button loading state
+     * @param {HTMLElement|string} button - Button element or selector
+     * @param {boolean} isLoading - Loading state
+     */
+    setLoading(button, isLoading) {
+        const btn = typeof button === 'string' ? document.querySelector(button) : button;
+        if (!btn) return;
+
+        if (isLoading) {
+            btn.classList.add('loading');
+            btn.disabled = true;
+        } else {
+            btn.classList.remove('loading');
+            btn.disabled = false;
+        }
     }
 };
 

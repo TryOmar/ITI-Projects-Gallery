@@ -50,20 +50,7 @@ let memberCount = 0;
 // UI Functions
 // ===========================
 
-/**
- * Sets loading state on a button
- * @param {HTMLElement} button - Button element
- * @param {boolean} loading - Loading state
- */
-function setButtonLoading(button, loading) {
-    if (loading) {
-        button.classList.add('loading');
-        button.disabled = true;
-    } else {
-        button.classList.remove('loading');
-        button.disabled = false;
-    }
-}
+
 
 /**
  * Shows an error message for a field
@@ -113,35 +100,7 @@ function clearAllErrors() {
     });
 }
 
-/**
- * Shows success alert
- * @param {string} message - Success message
- */
-function showSuccess(message) {
-    hideAlerts();
-    successMessage.textContent = message;
-    successAlert.classList.remove('hidden');
-    successAlert.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-}
 
-/**
- * Shows error alert
- * @param {string} message - Error message
- */
-function showError(message) {
-    hideAlerts();
-    errorMessage.textContent = message;
-    errorAlert.classList.remove('hidden');
-    errorAlert.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-}
-
-/**
- * Hides all alerts
- */
-function hideAlerts() {
-    successAlert.classList.add('hidden');
-    errorAlert.classList.add('hidden');
-}
 
 /**
  * Shows the edit section
@@ -167,7 +126,8 @@ function resetPage() {
     projectsContainer.innerHTML = '';
     userProjects = [];
     selectedProject = null;
-    hideAlerts();
+    userProjects = [];
+    selectedProject = null;
     clearAllErrors();
 
     // Reset team members
@@ -314,7 +274,7 @@ async function handleFindSubmit(event) {
     event.preventDefault();
 
     clearAllErrors();
-    hideAlerts();
+    clearAllErrors();
 
     const email = lookupEmail.value.trim();
 
@@ -326,7 +286,7 @@ async function handleFindSubmit(event) {
     }
 
     userEmail = email;
-    setButtonLoading(findBtn, true);
+    Utils.setLoading(findBtn, true);
 
     try {
         const response = await ApiService.lookupByEmail(email);
@@ -340,14 +300,14 @@ async function handleFindSubmit(event) {
             renderProjectsList(userProjects);
             projectsList.classList.remove('hidden');
         } else {
-            showError('No projects found with this email address. Please check the email and try again.');
+            Utils.showToast('No projects found with this email address.', 'info');
         }
 
     } catch (error) {
         console.error('Lookup error:', error);
-        showError(error.message || 'Failed to find projects. Please try again.');
+        Utils.showToast(error.message || 'Failed to find projects. Please try again.', 'error');
     } finally {
-        setButtonLoading(findBtn, false);
+        Utils.setLoading(findBtn, false);
     }
 }
 
@@ -358,7 +318,7 @@ function handleProjectSelection() {
     const selected = document.querySelector('input[name="project-selection"]:checked');
 
     if (!selected) {
-        showError('Please select a project to edit.');
+        Utils.showToast('Please select a project to edit.', 'error');
         return;
     }
 
@@ -366,7 +326,7 @@ function handleProjectSelection() {
     selectedProject = userProjects.find(p => p.id === projectId);
 
     if (!selectedProject) {
-        showError('Selected project not found.');
+        Utils.showToast('Selected project not found.', 'error');
         return;
     }
 
@@ -468,8 +428,6 @@ function validateEditForm() {
 async function handleEditSubmit(event) {
     event.preventDefault();
 
-    hideAlerts();
-
     if (!validateEditForm()) {
         const firstError = document.querySelector('.form-input.error');
         if (firstError) {
@@ -479,7 +437,7 @@ async function handleEditSubmit(event) {
         return;
     }
 
-    setButtonLoading(saveBtn, true);
+    Utils.setLoading(saveBtn, true);
 
     const updateData = {
         title: editFields.title.value.trim(),
@@ -498,7 +456,7 @@ async function handleEditSubmit(event) {
             throw new Error(response.error);
         }
 
-        showSuccess('Your project has been updated successfully! The changes will appear in the gallery shortly.');
+        Utils.showToast('Your project has been updated successfully!', 'success');
 
         // Update the selected project in our local state
         if (selectedProject) {
@@ -507,9 +465,9 @@ async function handleEditSubmit(event) {
 
     } catch (error) {
         console.error('Update error:', error);
-        showError(error.message || 'Failed to update project. Please try again.');
+        Utils.showToast(error.message || 'Failed to update project. Please try again.', 'error');
     } finally {
-        setButtonLoading(saveBtn, false);
+        Utils.setLoading(saveBtn, false);
     }
 }
 
@@ -518,7 +476,6 @@ async function handleEditSubmit(event) {
  */
 function handleCancel() {
     hideEditSection();
-    hideAlerts();
 
     // Scroll back to project selection
     projectsList.scrollIntoView({ behavior: 'smooth', block: 'start' });

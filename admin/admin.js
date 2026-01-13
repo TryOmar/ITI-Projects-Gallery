@@ -109,27 +109,9 @@ function showTable() {
  * Shows success toast
  * @param {string} message - Success message
  */
-function showSuccessToast(message) {
-    successMessage.textContent = message;
-    successAlert.classList.remove('hidden');
+// Toast functions now use Utils.showToast directly
+// Removed local showSuccessToast and showErrorToast
 
-    setTimeout(() => {
-        successAlert.classList.add('hidden');
-    }, 3000);
-}
-
-/**
- * Shows error toast
- * @param {string} message - Error message
- */
-function showErrorToast(message) {
-    alertErrorMessage.textContent = message;
-    errorAlert.classList.remove('hidden');
-
-    setTimeout(() => {
-        errorAlert.classList.add('hidden');
-    }, 5000);
-}
 
 /**
  * Updates stats display
@@ -287,11 +269,11 @@ async function handleVisibilityToggle(projectId, visible) {
             statusLabel.className = `visibility-status ${visible ? 'visible' : 'hidden'}`;
         }
 
-        showSuccessToast(`Project ${visible ? 'shown' : 'hidden'} successfully`);
+        Utils.showToast(`Project ${visible ? 'shown' : 'hidden'} successfully`, 'success');
 
     } catch (error) {
         console.error('Error updating visibility:', error);
-        showErrorToast(error.message || 'Failed to update visibility');
+        Utils.showToast(error.message || 'Failed to update visibility', 'error');
 
         // Revert toggle state
         const checkbox = document.querySelector(`tr[data-id="${projectId}"] input[type="checkbox"]`);
@@ -316,7 +298,7 @@ function openDeleteModal(projectId) {
     projectToDelete = allProjects.find(p => p.id === projectId);
 
     if (!projectToDelete) {
-        showErrorToast('Project not found');
+        Utils.showToast('Project not found', 'error');
         return;
     }
 
@@ -361,11 +343,11 @@ async function confirmDelete() {
         renderProjects(allProjects);
 
         closeDeleteModal();
-        showSuccessToast('Project deleted successfully');
+        Utils.showToast('Project deleted successfully', 'success');
 
     } catch (error) {
         console.error('Error deleting project:', error);
-        showErrorToast(error.message || 'Failed to delete project');
+        Utils.showToast(error.message || 'Failed to delete project', 'error');
     } finally {
         modalConfirmBtn.disabled = false;
         modalCancelBtn.disabled = false;
@@ -384,7 +366,7 @@ function openEditModal(projectId) {
     projectToEdit = allProjects.find(p => p.id === projectId);
 
     if (!projectToEdit) {
-        showErrorToast('Project not found');
+        Utils.showToast('Project not found', 'error');
         return;
     }
 
@@ -455,11 +437,11 @@ async function saveProjectEdit(e) {
         }
 
         closeEditModal();
-        showSuccessToast('Project updated successfully');
+        Utils.showToast('Project updated successfully', 'success');
 
     } catch (error) {
         console.error('Error updating project:', error);
-        showErrorToast(error.message || 'Failed to update project');
+        Utils.showToast(error.message || 'Failed to update project', 'error');
     } finally {
         editModalSaveBtn.disabled = false;
         editModalCancelBtn.disabled = false;
@@ -570,8 +552,7 @@ async function handleLogin(event) {
 
     // Show loading state
     const submitBtn = loginForm.querySelector('button[type="submit"]');
-    submitBtn.classList.add('loading');
-    submitBtn.disabled = true;
+    Utils.setLoading(submitBtn, true);
     loginError.classList.add('hidden');
 
     try {
@@ -591,8 +572,7 @@ async function handleLogin(event) {
         loginPassword.value = '';
         loginPassword.focus();
     } finally {
-        submitBtn.classList.remove('loading');
-        submitBtn.disabled = false;
+        Utils.setLoading(submitBtn, false);
     }
 }
 

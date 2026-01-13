@@ -266,8 +266,7 @@ function validateForm() {
  * Sets the form to loading state
  */
 function setLoadingState() {
-    submitBtn.disabled = true;
-    submitBtn.classList.add('loading');
+    Utils.setLoading(submitBtn, true);
 
     // Disable all form inputs
     Object.values(formFields).forEach(field => {
@@ -279,8 +278,7 @@ function setLoadingState() {
  * Removes loading state from form
  */
 function removeLoadingState() {
-    submitBtn.disabled = false;
-    submitBtn.classList.remove('loading');
+    Utils.setLoading(submitBtn, false);
 
     // Re-enable all form inputs
     Object.values(formFields).forEach(field => {
@@ -313,7 +311,7 @@ function showSuccess(projectId, email) {
                     <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
                     <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
                 </svg>
-                Use this email on the <a href="../edit/index.html">Edit page</a> to update your project anytime.
+                <span>Use this email on the <a href="../edit/index.html">Edit page</a> to update your project anytime.</span>
             </p>
             <div class="success-info-card id-card">
                 <div class="info-icon">
@@ -448,15 +446,19 @@ async function handleSubmit(event) {
         if (result.success) {
             showSuccess(result.id, formData.email);
             resetForm();
+            Utils.showToast('Project submitted successfully!', 'success');
         } else {
             // Handle API-level failure
             const errorMsg = result.message || 'Submission failed. Please try again.';
+            Utils.showToast(errorMsg, 'error');
             showError(errorMsg);
         }
     } catch (error) {
         // Handle errors
         console.error('Submission error:', error);
-        showError(error.message || 'An unexpected error occurred. Please try again later.');
+        const errorMsg = error.message || 'An unexpected error occurred. Please try again later.';
+        Utils.showToast(errorMsg, 'error');
+        showError(errorMsg);
     } finally {
         // Remove loading state
         removeLoadingState();
