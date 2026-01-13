@@ -129,7 +129,8 @@ const ApiService = {
             if (error.message === 'Failed to fetch') {
                 throw error;
             }
-        },
+        }
+    },
     /**
      * Helper to dispatch requests based on environment
      * @param {Object} config - Configuration object
@@ -138,31 +139,31 @@ const ApiService = {
      * @returns {Promise<Object>} API Request
      */
     async _dispatch({ local, prod }) {
-            const isLocal = CONFIG.ENV === 'LOCAL';
-            const conf = isLocal ? local : prod;
+        const isLocal = CONFIG.ENV === 'LOCAL';
+        const conf = isLocal ? local : prod;
 
-            const endpoint = conf.endpoint !== undefined ? conf.endpoint : '';
-            const options = {
-                method: conf.method || 'POST'
-            };
+        const endpoint = conf.endpoint !== undefined ? conf.endpoint : '';
+        const options = {
+            method: conf.method || 'POST'
+        };
 
-            if (conf.body) {
-                options.body = JSON.stringify(conf.body);
-            }
+        if (conf.body) {
+            options.body = JSON.stringify(conf.body);
+        }
 
-            return this.request(endpoint, options);
-        },
+        return this.request(endpoint, options);
+    },
 
     /**
      * Fetches all visible projects
      * @returns {Promise<Array>} Array of project objects
      */
     async getProjects() {
-            return this._dispatch({
-                local: { endpoint: '/projects', method: 'GET' },
-                prod: { endpoint: '', method: 'GET' }
-            });
-        },
+        return this._dispatch({
+            local: { endpoint: '/projects', method: 'GET' },
+            prod: { endpoint: '', method: 'GET' }
+        });
+    },
 
     /**
      * Fetches all projects (including hidden - for admin)
@@ -170,11 +171,11 @@ const ApiService = {
      * @returns {Promise<Array>} Array of all project objects
      */
     async getAllProjects(password) {
-            return this._dispatch({
-                local: { endpoint: '/projects/all', method: 'GET' },
-                prod: { endpoint: `?action=all&password=${encodeURIComponent(password)}`, method: 'GET' }
-            });
-        },
+        return this._dispatch({
+            local: { endpoint: '/projects/all', method: 'GET' },
+            prod: { endpoint: `?action=all&password=${encodeURIComponent(password)}`, method: 'GET' }
+        });
+    },
 
     /**
      * Creates a new project
@@ -182,11 +183,11 @@ const ApiService = {
      * @returns {Promise<Object>} Created project response
      */
     async createProject(projectData) {
-            return this._dispatch({
-                local: { endpoint: '/projects', body: projectData },
-                prod: { body: { action: 'create', ...projectData } }
-            });
-        },
+        return this._dispatch({
+            local: { endpoint: '/projects', body: projectData },
+            prod: { body: { action: 'create', ...projectData } }
+        });
+    },
 
     /**
      * Updates an existing project
@@ -195,11 +196,11 @@ const ApiService = {
      * @returns {Promise<Object>} Update response
      */
     async updateProject(id, projectData) {
-            return this._dispatch({
-                local: { endpoint: `/projects/${id}`, method: 'PUT', body: projectData },
-                prod: { body: { action: 'update', id, ...projectData } }
-            });
-        },
+        return this._dispatch({
+            local: { endpoint: `/projects/${id}`, method: 'PUT', body: projectData },
+            prod: { body: { action: 'update', id, ...projectData } }
+        });
+    },
 
     /**
      * Looks up projects by email
@@ -207,11 +208,11 @@ const ApiService = {
      * @returns {Promise<Object>} Projects belonging to email
      */
     async lookupByEmail(email) {
-            return this._dispatch({
-                local: { endpoint: '/projects/lookup', body: { email } },
-                prod: { body: { action: 'lookup', email } }
-            });
-        },
+        return this._dispatch({
+            local: { endpoint: '/projects/lookup', body: { email } },
+            prod: { body: { action: 'lookup', email } }
+        });
+    },
 
     /**
      * Toggles project visibility (admin)
@@ -222,11 +223,11 @@ const ApiService = {
      * @returns {Promise<Object>} Update response
      */
     async toggleVisibility(id, visible, adminNotes = '', password) {
-            return this._dispatch({
-                local: { endpoint: `/projects/${id}/visibility`, method: 'PATCH', body: { visible, adminNotes } },
-                prod: { body: { action: 'visibility', id, visible, adminNotes, password } }
-            });
-        },
+        return this._dispatch({
+            local: { endpoint: `/projects/${id}/visibility`, method: 'PATCH', body: { visible, adminNotes } },
+            prod: { body: { action: 'visibility', id, visible, adminNotes, password } }
+        });
+    },
 
     /**
      * Deletes a project (admin)
@@ -235,11 +236,11 @@ const ApiService = {
      * @returns {Promise<Object>} Delete response
      */
     async deleteProject(id, password) {
-            return this._dispatch({
-                local: { endpoint: `/projects/${id}`, method: 'DELETE' },
-                prod: { body: { action: 'delete', id, password } }
-            });
-        },
+        return this._dispatch({
+            local: { endpoint: `/projects/${id}`, method: 'DELETE' },
+            prod: { body: { action: 'delete', id, password } }
+        });
+    },
 
     /**
      * Verifies admin password
@@ -247,128 +248,136 @@ const ApiService = {
      * @returns {Promise<Object>} Verification response
      */
     async verifyAdminPassword(password) {
-            return this._dispatch({
-                local: { endpoint: '/admin/verify', body: { password } },
-                prod: { body: { action: 'verifyAdmin', password } }
-            });
-        }
-    };
+        return this._dispatch({
+            local: { endpoint: '/admin/verify', body: { password } },
+            prod: { body: { action: 'verifyAdmin', password } }
+        });
+    }
+};
 
+/**
+ * Utility Functions
+ */
+const Utils = {
     /**
-     * Utility Functions
+     * Validates a field value against rules
+     * @param {string} fieldName - Name of the field
+     * @param {string} value - Value to validate
+     * @returns {Object} { isValid: boolean, error: string }
      */
-    const Utils = {
-        /**
-         * Validates a field value against rules
-         * @param {string} fieldName - Name of the field
-         * @param {string} value - Value to validate
-         * @returns {Object} { isValid: boolean, error: string }
-         */
-        validateField(fieldName, value) {
-            const rules = CONFIG.VALIDATION[fieldName];
+    validateField(fieldName, value) {
+        const rules = CONFIG.VALIDATION[fieldName];
 
-            if (!rules) {
-                return { isValid: true, error: '' };
-            }
-
-            if (rules.required && !value.trim()) {
-                return {
-                    isValid: false,
-                    error: `${fieldName.charAt(0).toUpperCase() + fieldName.slice(1)} is required`
-                };
-            }
-
-            if (!rules.required && !value.trim()) {
-                return { isValid: true, error: '' };
-            }
-
-            if (rules.minLength && value.trim().length < rules.minLength) {
-                return { isValid: false, error: rules.message };
-            }
-
-            if (rules.maxLength && value.trim().length > rules.maxLength) {
-                return { isValid: false, error: rules.message };
-            }
-
-            if (rules.pattern && !rules.pattern.test(value.trim())) {
-                return { isValid: false, error: rules.message };
-            }
-
+        if (!rules) {
             return { isValid: true, error: '' };
-        },
+        }
 
-        /**
-         * Formats a date string
-         * @param {string} dateString - ISO date string
-         * @returns {string} Formatted date
-         */
-        formatDate(dateString) {
-            const date = new Date(dateString);
-            return date.toLocaleDateString('en-US', {
-                year: 'numeric',
-                month: 'short',
-                day: 'numeric'
-            });
-        },
-
-        /**
-         * Truncates text to specified length
-         * @param {string} text - Text to truncate
-         * @param {number} maxLength - Maximum length
-         * @returns {string} Truncated text
-         */
-        truncate(text, maxLength = 150) {
-            if (text.length <= maxLength) return text;
-            return text.substring(0, maxLength).trim() + '...';
-        },
-
-        /**
-         * Gets badge class for status
-         * @param {string} status - Project status
-         * @returns {string} CSS class name
-         */
-        getStatusBadgeClass(status) {
-            switch (status) {
-                case CONFIG.STATUS.COMPLETED:
-                    return 'badge-completed';
-                case CONFIG.STATUS.IN_PROGRESS:
-                    return 'badge-in-progress';
-                default:
-                    return 'badge-not-started';
-            }
-        },
-
-        /**
-         * Escapes HTML to prevent XSS
-         * @param {string} text - Text to escape
-         * @returns {string} Escaped text
-         */
-        escapeHtml(text) {
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
-        },
-
-        /**
-         * Debounce function for search
-         * @param {Function} func - Function to debounce
-         * @param {number} wait - Wait time in ms
-         * @returns {Function} Debounced function
-         */
-        debounce(func, wait = 300) {
-            let timeout;
-            return function executedFunction(...args) {
-                const later = () => {
-                    clearTimeout(timeout);
-                    func(...args);
-                };
-                clearTimeout(timeout);
-                timeout = setTimeout(later, wait);
+        if (rules.required && !value.trim()) {
+            return {
+                isValid: false,
+                error: `${fieldName.charAt(0).toUpperCase() + fieldName.slice(1)} is required`
             };
         }
-    };
 
-    // Export for module usage (if using modules)
-    if(typeof module !== 'undefined' && module.exports) {
-        module.exports = { CONFIG, ApiService, Utils, getApiUrl };
+        if (!rules.required && !value.trim()) {
+            return { isValid: true, error: '' };
+        }
+
+        if (rules.minLength && value.trim().length < rules.minLength) {
+            return { isValid: false, error: rules.message };
+        }
+
+        if (rules.maxLength && value.trim().length > rules.maxLength) {
+            return { isValid: false, error: rules.message };
+        }
+
+        if (rules.pattern && !rules.pattern.test(value.trim())) {
+            return { isValid: false, error: rules.message };
+        }
+
+        return { isValid: true, error: '' };
+    },
+
+    /**
+     * Formats a date string
+     * @param {string} dateString - ISO date string
+     * @returns {string} Formatted date
+     */
+    formatDate(dateString) {
+        const date = new Date(dateString);
+        return date.toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric'
+        });
+    },
+
+    /**
+     * Truncates text to specified length
+     * @param {string} text - Text to truncate
+     * @param {number} maxLength - Maximum length
+     * @returns {string} Truncated text
+     */
+    truncate(text, maxLength = 150) {
+        if (text.length <= maxLength) return text;
+        return text.substring(0, maxLength).trim() + '...';
+    },
+
+    /**
+     * Gets badge class for status
+     * @param {string} status - Project status
+     * @returns {string} CSS class name
+     */
+    getStatusBadgeClass(status) {
+        switch (status) {
+            case CONFIG.STATUS.COMPLETED:
+                return 'badge-completed';
+            case CONFIG.STATUS.IN_PROGRESS:
+                return 'badge-in-progress';
+            default:
+                return 'badge-not-started';
+        }
+    },
+
+    /**
+     * Escapes HTML to prevent XSS
+     * @param {string} text - Text to escape
+     * @returns {string} Escaped text
+     */
+    escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    },
+
+    /**
+     * Debounce function for search
+     * @param {Function} func - Function to debounce
+     * @param {number} wait - Wait time in ms
+     * @returns {Function} Debounced function
+     */
+    debounce(func, wait = 300) {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
+    }
+};
+
+// Export for module usage (if using modules)
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = { CONFIG, ApiService, Utils, getApiUrl };
+}
+
+// Expose to window for browser usage
+if (typeof window !== 'undefined') {
+    window.CONFIG = CONFIG;
+    window.ApiService = ApiService;
+    window.Utils = Utils;
+    window.getApiUrl = getApiUrl;
 }
