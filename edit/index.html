@@ -7,8 +7,11 @@
     <title>Edit Your Project | ITI Projects Gallery</title>
     <meta name="description"
         content="Edit and update your ITI project submission. Find your projects by email or project ID.">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../assets/css/shared.css">
     <link rel="stylesheet" href="edit.css">
+    <link rel="stylesheet" href="../assets/css/semantic-styles.css">
 </head>
 
 <body>
@@ -21,10 +24,7 @@
             </a>
 
             <button class="navbar-toggle" id="navbar-toggle" aria-label="Toggle navigation">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd"
-                        d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5" />
-                </svg>
+                <i class="bi bi-list" aria-hidden="true"></i>
             </button>
 
             <ul class="navbar-nav" id="navbar-nav">
@@ -48,11 +48,11 @@
             </header>
 
             <!-- Step 1: Find Project -->
-            <section class="edit-section" id="find-section">
+            <section class="edit-section" id="find-section" aria-labelledby="find-heading">
                 <div class="section-card">
                     <div class="section-header">
                         <div class="step-badge">Step 1</div>
-                        <h2>Find Your Project</h2>
+                        <h2 id="find-heading">Find Your Project</h2>
                         <p>Enter the email address you used when submitting your project</p>
                     </div>
 
@@ -83,11 +83,11 @@
             </section>
 
             <!-- Step 2: Edit Project -->
-            <section class="edit-section hidden" id="edit-section">
+            <section class="edit-section hidden" id="edit-section" aria-labelledby="update-heading">
                 <div class="section-card">
                     <div class="section-header">
                         <div class="step-badge">Step 2</div>
-                        <h2>Update Project Details</h2>
+                        <h2 id="update-heading">Update Project Details</h2>
                         <p>Modify the fields you want to update</p>
                     </div>
 
@@ -173,11 +173,7 @@
             <!-- Feedback Messages -->
             <div class="feedback-container">
                 <div class="alert alert-success hidden" id="success-alert" role="alert">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
-                        viewBox="0 0 16 16">
-                        <path
-                            d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
-                    </svg>
+                    <i class="bi bi-check-circle" aria-hidden="true"></i>
                     <div class="alert-content">
                         <h3>Project Updated Successfully!</h3>
                         <p id="success-message">Your changes have been saved.</p>
@@ -185,11 +181,7 @@
                 </div>
 
                 <div class="alert alert-error hidden" id="error-alert" role="alert">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
-                        viewBox="0 0 16 16">
-                        <path
-                            d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z" />
-                    </svg>
+                    <i class="bi bi-x-circle" aria-hidden="true"></i>
                     <div class="alert-content">
                         <h3>Error</h3>
                         <p id="error-message"></p>
