@@ -12,7 +12,7 @@
 
 const CONFIG = {
     // Environment: 'LOCAL' for development, 'PRODUCTION' for Google Apps Script
-    ENV: 'LOCAL',
+    ENV: 'PRODUCTION',
 
     // API Endpoints
     API: {
