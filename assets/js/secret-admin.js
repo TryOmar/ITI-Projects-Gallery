@@ -84,30 +84,35 @@
         document.head.appendChild(style);
 
         logo.addEventListener('click', (e) => {
+            // Always prevent default to handle the counting without reloading
+            e.preventDefault();
+            e.stopPropagation();
+
             logoClickCount++;
 
             if (logoClickTimeout) clearTimeout(logoClickTimeout);
 
-            // Visual feedback after 3 clicks
-            if (logoClickCount > 3) {
-                logo.style.animation = 'none';
-                logo.offsetHeight;
-                logo.style.animation = 'logoShake 0.3s ease';
-            }
+            // Visual feedback
+            logo.style.animation = 'none';
+            logo.offsetHeight; // force reflow
+            logo.style.animation = 'logoShake 0.2s ease';
 
             // Activate on 7 clicks
             if (logoClickCount >= LOGO_CLICK_COUNT) {
-                e.preventDefault();
-                e.stopPropagation();
                 logoClickCount = 0;
                 goToAdmin();
                 return;
             }
 
-            // Reset after timeout
+            // If user stops clicking, perform the normal link action (Go Home)
             logoClickTimeout = setTimeout(() => {
                 logoClickCount = 0;
-            }, CLICK_TIMEOUT);
+                // Navigate to the parent anchor's href
+                const parentLink = logo.closest('a');
+                if (parentLink && parentLink.href) {
+                    window.location.href = parentLink.href;
+                }
+            }, 400); // 400ms wait to see if another click is coming
         });
     }
 

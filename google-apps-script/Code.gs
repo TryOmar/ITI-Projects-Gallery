@@ -42,8 +42,28 @@ const COL = {
 function doGet(e) {
     try {
         const action = e.parameter.action || 'list';
+
+        // Debug Endpoint to verify where data is complying
+        if (action === 'debug_info') {
+             if (e.parameter.password !== ADMIN_PASSWORD) return response({ error: 'Unauthorized' });
+             const ss = SpreadsheetApp.getActiveSpreadsheet();
+             const sheet = ss.getSheetByName(SHEET_NAME);
+             return response({
+                 info: 'Debug Connection Info',
+                 spreadsheetId: ss.getId(),
+                 spreadsheetName: ss.getName(),
+                 availableSheets: ss.getSheets().map(s => s.getName()),
+                 targetSheet: SHEET_NAME,
+                 targetSheetExists: !!sheet,
+                 rowCount: sheet ? sheet.getLastRow() : 0
+             });
+        }
         
         if (action === 'all') {
+            // Verify admin password
+            if (e.parameter.password !== ADMIN_PASSWORD) {
+                return response({ error: 'Unauthorized' });
+            }
             // Return all projects (for admin)
             return response(getAllProjects(false));
         }
@@ -79,8 +99,10 @@ function doPost(e) {
             case 'lookup':
                 return response(lookupByEmail(data.email));
             case 'visibility':
+                if (data.password !== ADMIN_PASSWORD) return response({ error: 'Unauthorized' });
                 return response(updateVisibility(data.id, data.visible, data.adminNotes));
             case 'delete':
+                if (data.password !== ADMIN_PASSWORD) return response({ error: 'Unauthorized' });
                 return response(deleteProject(data.id));
             case 'verifyAdmin':
                 return response(verifyAdminPassword(data.password));
@@ -151,7 +173,31 @@ function createProject(data) {
     const id = generateProjectId();
     const now = new Date();
     
-    sheet.appendRow([
+    // Find first empty row based on ID column to avoid appending after empty formatted rows
+    const lastRow = Math.max(sheet.getLastRow(), 2);
+    const maxRows = sheet.getMaxRows();
+    
+    // Read all IDs roughly up to where data might be
+    const ids = sheet.getRange(2, 1, lastRow, 1).getValues(); 
+    let row = -1;
+    
+    for (let i = 0; i < ids.length; i++) {
+        if (!ids[i][0]) {
+            row = i + 2;
+            break;
+        }
+    }
+    
+    if (row === -1) {
+        row = lastRow + 1;
+    }
+    
+    // Ensure row is within bounds, add if necessary (though usually Sheets expands)
+    if (row > maxRows) {
+        sheet.insertRowAfter(maxRows);
+    }
+    
+    const rowData = [
         id,
         data.title || '',
         data.team || '',
@@ -164,7 +210,9 @@ function createProject(data) {
         '', // Admin notes
         now, // Created at
         now  // Updated at
-    ]);
+    ];
+    
+    sheet.getRange(row, 1, 1, rowData.length).setValues([rowData]);
     
     return { success: true, id: id };
 }

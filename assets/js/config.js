@@ -18,7 +18,7 @@ const CONFIG = {
     API: {
         // Local testing server (run from /server folder)
         LOCAL: 'http://localhost:3000/api',
-        PRODUCTION: 'https://script.google.com/macros/s/AKfycbz6oQMmZ5kF5eDZHiIXuER1DDhoiDIIJtRQZ8jCm-mo4R4sgR3qIbk9sSKw9WkV95Q/exec'
+        PRODUCTION: 'https://script.google.com/macros/s/AKfycbzUGjRhQuIitDyNojJ6gmC2p0CXcfk65dkIizf2pqh9h6NXsMpekWFL9M2LUjZMZo0/exec'
     },
 
     // Project Status Options
@@ -145,12 +145,19 @@ const ApiService = {
      * Fetches all projects (including hidden - for admin)
      * @returns {Promise<Array>} Array of all project objects
      */
-    async getAllProjects() {
+    /**
+     * Fetches all projects (including hidden - for admin)
+     * @param {string} password - Admin password
+     * @returns {Promise<Array>} Array of all project objects
+     */
+    async getAllProjects(password) {
         if (CONFIG.ENV === 'LOCAL') {
             return this.request('/projects/all');
         }
-        // For Google Apps Script, would need to add action parameter
-        return this.request('', { method: 'GET' });
+
+        // Google Apps Script requires query parameters for GET
+        const queryParams = `?action=all&password=${encodeURIComponent(password)}`;
+        return this.request(queryParams, { method: 'GET' });
     },
 
     /**
@@ -211,10 +218,11 @@ const ApiService = {
      * Toggles project visibility (admin)
      * @param {string} id - Project ID
      * @param {boolean} visible - Visibility status
-     * @param {string} adminNotes - Optional admin notes
+     * @param {string} adminNotes - Admin notes
+     * @param {string} password - Admin password
      * @returns {Promise<Object>} Update response
      */
-    async toggleVisibility(id, visible, adminNotes = '') {
+    async toggleVisibility(id, visible, adminNotes = '', password) {
         if (CONFIG.ENV === 'LOCAL') {
             return this.request(`/projects/${id}/visibility`, {
                 method: 'PATCH',
@@ -223,16 +231,17 @@ const ApiService = {
         }
         return this.request('', {
             method: 'POST',
-            body: JSON.stringify({ action: 'visibility', id, visible, adminNotes })
+            body: JSON.stringify({ action: 'visibility', id, visible, adminNotes, password })
         });
     },
 
     /**
      * Deletes a project (admin)
      * @param {string} id - Project ID
+     * @param {string} password - Admin password
      * @returns {Promise<Object>} Delete response
      */
-    async deleteProject(id) {
+    async deleteProject(id, password) {
         if (CONFIG.ENV === 'LOCAL') {
             return this.request(`/projects/${id}`, {
                 method: 'DELETE'
@@ -240,7 +249,7 @@ const ApiService = {
         }
         return this.request('', {
             method: 'POST',
-            body: JSON.stringify({ action: 'delete', id })
+            body: JSON.stringify({ action: 'delete', id, password })
         });
     },
 

@@ -228,7 +228,8 @@ async function fetchProjects() {
     showLoading();
 
     try {
-        const response = await ApiService.getAllProjects();
+        const password = sessionStorage.getItem(ADMIN_PASSWORD_KEY);
+        const response = await ApiService.getAllProjects(password);
 
         if (Array.isArray(response)) {
             allProjects = response;
@@ -257,7 +258,8 @@ async function fetchProjects() {
  */
 async function handleVisibilityToggle(projectId, visible) {
     try {
-        const response = await ApiService.toggleVisibility(projectId, visible);
+        const password = sessionStorage.getItem(ADMIN_PASSWORD_KEY);
+        const response = await ApiService.toggleVisibility(projectId, visible, '', password);
 
         if (response.error) {
             throw new Error(response.error);
@@ -338,7 +340,8 @@ async function confirmDelete() {
     modalCancelBtn.disabled = true;
 
     try {
-        const response = await ApiService.deleteProject(projectId);
+        const password = sessionStorage.getItem(ADMIN_PASSWORD_KEY);
+        const response = await ApiService.deleteProject(projectId, password);
 
         if (response.error) {
             throw new Error(response.error);
