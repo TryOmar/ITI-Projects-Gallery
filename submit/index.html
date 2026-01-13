@@ -6,8 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Submit Your Project | ITI Projects Gallery</title>
     <meta name="description" content="Submit your ITI project to the gallery and showcase your work to the community.">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../assets/css/shared.css">
     <link rel="stylesheet" href="submit.css">
+    <link rel="stylesheet" href="../assets/css/semantic-styles.css">
 </head>
 
 <body>
@@ -20,10 +23,7 @@
             </a>
 
             <button class="navbar-toggle" id="navbar-toggle" aria-label="Toggle navigation">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd"
-                        d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5" />
-                </svg>
+                <i class="bi bi-list" aria-hidden="true"></i>
             </button>
 
             <ul class="navbar-nav" id="navbar-nav">
@@ -35,7 +35,7 @@
         </div>
     </nav>
 
-    <div class="main-container with-navbar">
+    <main class="main-container with-navbar">
         <!-- Header Section -->
         <header class="page-header">
             <h1>Submit Your Project</h1>
@@ -43,159 +43,135 @@
         </header>
 
         <!-- Main Form -->
-        <form id="project-form" class="submit-form" novalidate>
+        <section aria-labelledby="form-title">
+            <h2 id="form-title" class="visually-hidden">Project Submission Form</h2>
+            <form id="project-form" class="submit-form" novalidate>
 
-            <!-- Project Information Section -->
-            <section class="form-section">
-                <h2 class="section-title">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
-                        viewBox="0 0 16 16" aria-hidden="true">
-                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
-                        <path
-                            d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0" />
-                    </svg>
-                    Project Information
-                </h2>
+                <!-- Project Information Section -->
+                <section class="form-section" aria-labelledby="info-heading">
+                    <h2 id="info-heading" class="section-title">
+                        <i class="bi bi-info-circle" aria-hidden="true"></i>
+                        Project Information
+                    </h2>
 
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="title" class="form-label">
-                            Project Title <span class="required">*</span>
-                        </label>
-                        <input type="text" id="title" name="title" class="form-input"
-                            placeholder="e.g., Library Management System" required aria-required="true">
-                        <span class="error-message" id="title-error"></span>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="status" class="form-label">Status</label>
-                        <select id="status" name="status" class="form-input">
-                            <option value="Not Started">Not Started</option>
-                            <option value="In Progress">In Progress</option>
-                            <option value="Completed">Completed</option>
-                        </select>
-                        <span class="error-message" id="status-error"></span>
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group form-group-full">
-                        <label for="description" class="form-label">
-                            Project Description <span class="required">*</span>
-                        </label>
-                        <textarea id="description" name="description" class="form-input"
-                            placeholder="Provide a detailed description of your project, its goals, and key features..."
-                            rows="5" required aria-required="true"></textarea>
-                        <span class="error-message" id="description-error"></span>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Team Information Section -->
-            <section class="form-section">
-                <h2 class="section-title">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
-                        viewBox="0 0 16 16" aria-hidden="true">
-                        <path
-                            d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1zm-7.978-1L7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002-.014.002zM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4m3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0M6.936 9.28a6 6 0 0 0-1.23-.247A7 7 0 0 0 5 9c-4 0-5 3-5 4q0 1 1 1h4.216A2.24 2.24 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816M4.92 10A5.5 5.5 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275ZM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0m3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4" />
-                    </svg>
-                    Team Information
-                </h2>
-
-                <div class="form-row">
-                    <div class="form-group form-group-full">
-                        <label class="form-label">
-                            Team Members <span class="required">*</span>
-                        </label>
-                        <div id="team-members-container" class="team-members-container">
-                            <div class="team-member-input-group">
-                                <input type="text" class="form-input team-member-input" placeholder="e.g., Ahmed"
-                                    data-member-index="0">
-                                <button type="button" class="btn-remove-member" aria-label="Remove member" disabled>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                        viewBox="0 0 16 16">
-                                        <path
-                                            d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
-                                    </svg>
-                                </button>
-                            </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="title" class="form-label">
+                                Project Title <span class="required">*</span>
+                            </label>
+                            <input type="text" id="title" name="title" class="form-input"
+                                placeholder="e.g., Library Management System" required aria-required="true">
+                            <span class="error-message" id="title-error"></span>
                         </div>
-                        <button type="button" id="add-member-btn" class="btn-add-member">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                viewBox="0 0 16 16">
-                                <path
-                                    d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
-                            </svg>
-                            Add Member
-                        </button>
-                        <input type="hidden" id="team" name="team" required>
-                        <span class="error-message" id="team-error"></span>
+
+                        <div class="form-group">
+                            <label for="status" class="form-label">Status</label>
+                            <select id="status" name="status" class="form-input">
+                                <option value="Not Started">Not Started</option>
+                                <option value="In Progress">In Progress</option>
+                                <option value="Completed">Completed</option>
+                            </select>
+                            <span class="error-message" id="status-error"></span>
+                        </div>
                     </div>
+
+                    <div class="form-row">
+                        <div class="form-group form-group-full">
+                            <label for="description" class="form-label">
+                                Project Description <span class="required">*</span>
+                            </label>
+                            <textarea id="description" name="description" class="form-input"
+                                placeholder="Provide a detailed description of your project, its goals, and key features..."
+                                rows="5" required aria-required="true"></textarea>
+                            <span class="error-message" id="description-error"></span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Team Information Section -->
+                <section class="form-section" aria-labelledby="team-heading">
+                    <h2 id="team-heading" class="section-title">
+                        <i class="bi bi-people" aria-hidden="true"></i>
+                        Team Information
+                    </h2>
+
+                    <div class="form-row">
+                        <div class="form-group form-group-full">
+                            <label class="form-label">
+                                Team Members <span class="required">*</span>
+                            </label>
+                            <div id="team-members-container" class="team-members-container">
+                                <div class="team-member-input-group">
+                                    <input type="text" class="form-input team-member-input" placeholder="e.g., Ahmed"
+                                        data-member-index="0">
+                                    <button type="button" class="btn-remove-member" aria-label="Remove member" disabled>
+                                        <i class="bi bi-x-circle" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <button type="button" id="add-member-btn" class="btn-add-member">
+                                <i class="bi bi-plus-circle" aria-hidden="true"></i>
+                                Add Member
+                            </button>
+                            <input type="hidden" id="team" name="team" required>
+                            <span class="error-message" id="team-error"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group form-group-full">
+                            <label for="email" class="form-label">
+                                Contact Email <span class="required">*</span>
+                            </label>
+                            <input type="email" id="email" name="email" class="form-input"
+                                placeholder="example@email.com" required aria-required="true">
+                            <span class="error-message" id="email-error"></span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Project Links Section -->
+                <section class="form-section" aria-labelledby="links-heading">
+                    <h2 id="links-heading" class="section-title">
+                        <i class="bi bi-link-45deg" aria-hidden="true"></i>
+                        Project Links
+                    </h2>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="github" class="form-label">
+                                GitHub Repository URL
+                            </label>
+                            <input type="url" id="github" name="github" class="form-input"
+                                placeholder="https://github.com/username/repository">
+                            <span class="error-message" id="github-error"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="demo" class="form-label">
+                                Demo / Live URL
+                            </label>
+                            <input type="url" id="demo" name="demo" class="form-input"
+                                placeholder="https://your-demo-site.com">
+                            <span class="error-message" id="demo-error"></span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Form Actions -->
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary" id="submit-btn">
+                        <span class="btn-text">Submit Project</span>
+                        <span class="btn-loader" aria-hidden="true"></span>
+                    </button>
                 </div>
-
-                <div class="form-row">
-                    <div class="form-group form-group-full">
-                        <label for="email" class="form-label">
-                            Contact Email <span class="required">*</span>
-                        </label>
-                        <input type="email" id="email" name="email" class="form-input" placeholder="example@email.com"
-                            required aria-required="true">
-                        <span class="error-message" id="email-error"></span>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Project Links Section -->
-            <section class="form-section">
-                <h2 class="section-title">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
-                        viewBox="0 0 16 16" aria-hidden="true">
-                        <path
-                            d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.002 1.002 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z" />
-                        <path
-                            d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243z" />
-                    </svg>
-                    Project Links
-                </h2>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="github" class="form-label">
-                            GitHub Repository URL
-                        </label>
-                        <input type="url" id="github" name="github" class="form-input"
-                            placeholder="https://github.com/username/repository">
-                        <span class="error-message" id="github-error"></span>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="demo" class="form-label">
-                            Demo / Live URL
-                        </label>
-                        <input type="url" id="demo" name="demo" class="form-input"
-                            placeholder="https://your-demo-site.com">
-                        <span class="error-message" id="demo-error"></span>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Form Actions -->
-            <div class="form-actions">
-                <button type="submit" class="btn btn-primary" id="submit-btn">
-                    <span class="btn-text">Submit Project</span>
-                    <span class="btn-loader" aria-hidden="true"></span>
-                </button>
-            </div>
-        </form>
+            </form>
+        </section>
 
         <!-- Feedback Messages -->
         <div class="feedback-container">
             <div class="alert alert-success" id="success-alert" role="alert">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16"
-                    aria-hidden="true">
-                    <path
-                        d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
-                </svg>
+                <i class="bi bi-check-circle" aria-hidden="true"></i>
                 <div class="alert-content">
                     <h3>Project Submitted Successfully!</h3>
                     <p id="success-message"></p>
@@ -203,18 +179,14 @@
             </div>
 
             <div class="alert alert-error" id="error-alert" role="alert">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16"
-                    aria-hidden="true">
-                    <path
-                        d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z" />
-                </svg>
+                <i class="bi bi-x-circle" aria-hidden="true"></i>
                 <div class="alert-content">
                     <h3>Submission Failed</h3>
                     <p id="error-message"></p>
                 </div>
             </div>
         </div>
-    </div>
+    </main>
 
     <!-- Footer -->
     <footer class="footer">

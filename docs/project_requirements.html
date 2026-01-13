@@ -5,187 +5,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ITI Projects Gallery - Technical Requirements Document</title>
-    <style>
-        @page {
-            margin: 25mm;
-            size: A4;
-        }
-
-        @media print {
-            body {
-                margin: 0;
-                padding: 0;
-            }
-
-            .page-break {
-                page-break-before: always;
-            }
-
-            .no-break {
-                page-break-inside: avoid;
-            }
-
-            h1,
-            h2,
-            h3 {
-                page-break-after: avoid;
-            }
-
-            table {
-                page-break-inside: avoid;
-            }
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Times New Roman', Times, serif;
-            line-height: 1.8;
-            color: #000;
-            background: #fff;
-            font-size: 11pt;
-        }
-
-        .container {
-            max-width: 210mm;
-            margin: 0 auto;
-            padding: 0;
-        }
-
-        h1 {
-            font-size: 20pt;
-            font-weight: bold;
-            text-align: center;
-            margin-bottom: 8mm;
-            margin-top: 5mm;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            border-bottom: 2px solid #000;
-            padding-bottom: 4mm;
-        }
-
-        h2 {
-            font-size: 14pt;
-            font-weight: bold;
-            margin-top: 8mm;
-            margin-bottom: 4mm;
-            text-transform: uppercase;
-            border-bottom: 1px solid #000;
-            padding-bottom: 2mm;
-        }
-
-        h3 {
-            font-size: 12pt;
-            font-weight: bold;
-            margin-top: 6mm;
-            margin-bottom: 3mm;
-        }
-
-        h4 {
-            font-size: 11pt;
-            font-weight: bold;
-            margin-top: 4mm;
-            margin-bottom: 2mm;
-            font-style: italic;
-        }
-
-        p {
-            margin-bottom: 3mm;
-            text-align: justify;
-        }
-
-        ul,
-        ol {
-            margin-left: 10mm;
-            margin-bottom: 4mm;
-        }
-
-        li {
-            margin-bottom: 2mm;
-        }
-
-        ul ul,
-        ol ul {
-            margin-top: 2mm;
-            margin-bottom: 2mm;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 4mm 0 6mm 0;
-            font-size: 10pt;
-        }
-
-        th,
-        td {
-            border: 1px solid #000;
-            padding: 3mm;
-            text-align: left;
-            vertical-align: top;
-        }
-
-        th {
-            background-color: #f0f0f0;
-            font-weight: bold;
-        }
-
-        .section {
-            margin-bottom: 6mm;
-        }
-
-        .spec-box {
-            border: 1px solid #000;
-            padding: 4mm;
-            margin: 4mm 0;
-            background: #fafafa;
-        }
-
-        code {
-            font-family: 'Courier New', monospace;
-            font-size: 10pt;
-            background: #f5f5f5;
-            padding: 1mm 2mm;
-            border: 1px solid #ddd;
-        }
-
-        .meta-info {
-            text-align: center;
-            margin-bottom: 8mm;
-            font-size: 10pt;
-        }
-
-        strong {
-            font-weight: bold;
-        }
-
-        .indent {
-            margin-left: 8mm;
-        }
-
-        hr {
-            border: none;
-            border-top: 1px solid #000;
-            margin: 6mm 0;
-        }
-    </style>
+    <link rel="stylesheet" href="project_requirements.css">
+    <!-- Bootstrap Icons not needed here but kept consistent if requested, prompt said "for each HTML page". I will add it for consistency. -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 </head>
 
 <body>
-    <div class="container">
-        <h1>ITI Projects Gallery</h1>
-        <div class="meta-info">
-            <strong>Technical Requirements Document</strong><br>
-            Version 1.0<br>
-            Document Date: December 2026
-        </div>
+    <main class="container">
+        <header>
+            <h1>ITI Projects Gallery</h1>
+            <div class="meta-info">
+                <strong>Technical Requirements Document</strong><br>
+                Version 1.0<br>
+                Document Date: December 2026
+            </div>
+        </header>
 
-        <div class="section no-break">
-            <h2>1. Project Overview</h2>
+        <section class="section no-break" aria-labelledby="overview-heading">
+            <h2 id="overview-heading">1. Project Overview</h2>
             <p>ITI Projects Gallery is a web-based gallery system designed to showcase projects created by ITI students
                 during their 9-month training program. The system is architected to provide maximum ease of use for
                 project submission and editing while maintaining a lightweight infrastructure without traditional
@@ -193,10 +30,10 @@
 
             <p>The system leverages HTML, CSS, and JavaScript for the frontend interface, with Google Sheets and Google
                 Apps Script serving as the backend infrastructure and API layer respectively.</p>
-        </div>
+        </section>
 
-        <div class="section no-break">
-            <h2>2. Project Objectives</h2>
+        <section class="section no-break" aria-labelledby="objectives-heading">
+            <h2 id="objectives-heading">2. Project Objectives</h2>
             <ol>
                 <li>Enable ITI students to submit their projects through a simple web interface</li>
                 <li>Provide students with the ability to edit their own project submissions post-submission</li>
@@ -204,10 +41,10 @@
                 <li>Maintain a lightweight backend infrastructure using only Google Sheets</li>
                 <li>Implement admin moderation capabilities without complex role-based access control systems</li>
             </ol>
-        </div>
+        </section>
 
-        <div class="section no-break">
-            <h2>3. Technology Stack</h2>
+        <section class="section no-break" aria-labelledby="stack-heading">
+            <h2 id="stack-heading">3. Technology Stack</h2>
 
             <h3>3.1 Frontend Technologies</h3>
             <ul>
@@ -226,12 +63,12 @@
             <ul>
                 <li>Static hosting service (GitHub Pages, Netlify, or equivalent)</li>
             </ul>
-        </div>
+        </section>
 
         <div class="page-break"></div>
 
-        <div class="section">
-            <h2>4. System Architecture</h2>
+        <section class="section" aria-labelledby="architecture-heading">
+            <h2 id="architecture-heading">4. System Architecture</h2>
 
             <h3>4.1 Application Pages</h3>
             <p>The system consists of five HTML pages, three required and two optional:</p>
@@ -278,51 +115,53 @@
                     </tr>
                 </tbody>
             </table>
-        </div>
+        </section>
 
         <div class="page-break"></div>
 
-        <div class="section">
-            <h2>5. Page Specifications</h2>
+        <section class="section" aria-labelledby="specs-heading">
+            <h2 id="specs-heading">5. Page Specifications</h2>
 
-            <h3 class="no-break">5.1 Gallery Page (index.html)</h3>
-            <div class="no-break">
-                <h4>Purpose</h4>
-                <p>Display all projects marked as visible in the public gallery interface.</p>
+            <section class="no-break" aria-labelledby="gallery-page-heading">
+                <h3 id="gallery-page-heading">5.1 Gallery Page (index.html)</h3>
+                <div class="no-break">
+                    <h4>Purpose</h4>
+                    <p>Display all projects marked as visible in the public gallery interface.</p>
 
-                <h4>Functional Requirements</h4>
-                <ul>
-                    <li>Fetch project data from Google Sheets via Google Apps Script API</li>
-                    <li>Display only projects where the Visible field is set to TRUE</li>
-                    <li>Render project information in card format</li>
-                    <li>Implement filtering mechanisms by Status, Framework, and Team Member</li>
-                    <li>Provide search functionality across project data</li>
-                </ul>
+                    <h4>Functional Requirements</h4>
+                    <ul>
+                        <li>Fetch project data from Google Sheets via Google Apps Script API</li>
+                        <li>Display only projects where the Visible field is set to TRUE</li>
+                        <li>Render project information in card format</li>
+                        <li>Implement filtering mechanisms by Status, Framework, and Team Member</li>
+                        <li>Provide search functionality across project data</li>
+                    </ul>
 
-                <h4>Project Card Display Elements</h4>
-                <ul>
-                    <li>Project Title</li>
-                    <li>Team Members (displayed as GitHub handles)</li>
-                    <li>Project Description</li>
-                    <li>Status Badge (Not Started, In Progress, Completed)</li>
-                    <li>Frameworks and Technology Stack</li>
-                    <li>Links (Demo, GitHub Repository, Application URL)</li>
-                    <li>Screenshot (optional)</li>
-                </ul>
+                    <h4>Project Card Display Elements</h4>
+                    <ul>
+                        <li>Project Title</li>
+                        <li>Team Members (displayed as GitHub handles)</li>
+                        <li>Project Description</li>
+                        <li>Status Badge (Not Started, In Progress, Completed)</li>
+                        <li>Frameworks and Technology Stack</li>
+                        <li>Links (Demo, GitHub Repository, Application URL)</li>
+                        <li>Screenshot (optional)</li>
+                    </ul>
 
-                <h4>User Interface Components</h4>
-                <ul>
-                    <li>Filter controls for Status, Framework, and Team Member</li>
-                    <li>Search bar for text-based queries</li>
-                    <li>Responsive card grid layout</li>
-                </ul>
-            </div>
-        </div>
+                    <h4>User Interface Components</h4>
+                    <ul>
+                        <li>Filter controls for Status, Framework, and Team Member</li>
+                        <li>Search bar for text-based queries</li>
+                        <li>Responsive card grid layout</li>
+                    </ul>
+                </div>
+            </section>
+        </section>
 
         <div class="page-break"></div>
 
-        <div class="section">
-            <h3 class="no-break">5.2 Project Submission Page (submit.html)</h3>
+        <section class="section" aria-labelledby="submission-specs-heading">
+            <h3 class="no-break" id="submission-specs-heading">5.2 Project Submission Page (submit.html)</h3>
             <div class="no-break">
                 <h4>Purpose</h4>
                 <p>Provide an interface for students to submit new project entries to the system.</p>
@@ -398,12 +237,12 @@
                     <li>Success or error message displayed to user</li>
                 </ol>
             </div>
-        </div>
+        </section>
 
         <div class="page-break"></div>
 
-        <div class="section">
-            <h3 class="no-break">5.3 Project Edit Page (edit.html)</h3>
+        <section class="section" aria-labelledby="edit-specs-heading">
+            <h3 class="no-break" id="edit-specs-heading">5.3 Project Edit Page (edit.html)</h3>
             <div class="no-break">
                 <h4>Purpose</h4>
                 <p>Allow students to modify their existing project submissions.</p>
@@ -436,12 +275,12 @@
                     <li>Confirmation displayed to user</li>
                 </ol>
             </div>
-        </div>
+        </section>
 
         <div class="page-break"></div>
 
-        <div class="section">
-            <h3 class="no-break">5.4 Admin Page (admin.html) - Optional</h3>
+        <section class="section" aria-labelledby="admin-specs-heading">
+            <h3 class="no-break" id="admin-specs-heading">5.4 Admin Page (admin.html) - Optional</h3>
             <div class="no-break">
                 <h4>Purpose</h4>
                 <p>Provide administrative interface for project moderation and visibility control.</p>
@@ -476,12 +315,12 @@
                     <li>Contact information or support channels</li>
                 </ul>
             </div>
-        </div>
+        </section>
 
         <div class="page-break"></div>
 
-        <div class="section">
-            <h2>6. Database Schema</h2>
+        <section class="section" aria-labelledby="schema-heading">
+            <h2 id="schema-heading">6. Database Schema</h2>
 
             <h3>6.1 Google Sheet Structure</h3>
             <p>Each row in the Google Sheet represents a single project. The following columns must be implemented:</p>
@@ -576,12 +415,12 @@
                     </tr>
                 </tbody>
             </table>
-        </div>
+        </section>
 
         <div class="page-break"></div>
 
-        <div class="section">
-            <h2>7. Project Status Values</h2>
+        <section class="section" aria-labelledby="status-heading">
+            <h2 id="status-heading">7. Project Status Values</h2>
             <p>The Status field must accept exactly three predefined values:</p>
 
             <table>
@@ -606,10 +445,10 @@
                     </tr>
                 </tbody>
             </table>
-        </div>
+        </section>
 
-        <div class="section no-break">
-            <h2>8. Visibility Control Mechanism</h2>
+        <section class="section no-break" aria-labelledby="visibility-heading">
+            <h2 id="visibility-heading">8. Visibility Control Mechanism</h2>
             <p>Project visibility in the public gallery is controlled by the Visible field in the Google Sheet:</p>
 
             <ul>
@@ -618,10 +457,10 @@
             </ul>
 
             <p>The admin manually controls this field through the admin interface or directly in the Google Sheet.</p>
-        </div>
+        </section>
 
-        <div class="section no-break">
-            <h2>9. Edit Authorization Logic</h2>
+        <section class="section no-break" aria-labelledby="auth-heading">
+            <h2 id="auth-heading">9. Edit Authorization Logic</h2>
             <p>The system implements the following rules for project editing:</p>
 
             <ul>
@@ -631,12 +470,12 @@
                 <li>Updates modify the existing row rather than creating a new entry</li>
                 <li>The gallery automatically reflects changes after Sheet updates</li>
             </ul>
-        </div>
+        </section>
 
         <div class="page-break"></div>
 
-        <div class="section">
-            <h2>10. System Advantages</h2>
+        <section class="section" aria-labelledby="advantages-heading">
+            <h2 id="advantages-heading">10. System Advantages</h2>
             <ul>
                 <li>Eliminates the need for traditional backend infrastructure or database servers</li>
                 <li>Minimal maintenance requirements</li>
@@ -646,10 +485,10 @@
                 <li>Zero hosting costs for backend infrastructure</li>
                 <li>Real-time updates without deployment procedures</li>
             </ul>
-        </div>
+        </section>
 
-        <div class="section no-break">
-            <h2>11. Future Enhancement Opportunities</h2>
+        <section class="section no-break" aria-labelledby="future-heading">
+            <h2 id="future-heading">11. Future Enhancement Opportunities</h2>
             <p>The following features may be considered for future iterations:</p>
 
             <ul>
@@ -662,12 +501,12 @@
                 <li>Project analytics and statistics</li>
                 <li>Notification system for project updates</li>
             </ul>
-        </div>
+        </section>
 
         <div class="page-break"></div>
 
-        <div class="section">
-            <h2>12. Implementation Roadmap</h2>
+        <section class="section" aria-labelledby="roadmap-heading">
+            <h2 id="roadmap-heading">12. Implementation Roadmap</h2>
 
             <h3>Phase 1: Backend Setup</h3>
             <ol>
@@ -710,10 +549,10 @@
                 <li>Monitor system performance and user feedback</li>
                 <li>Implement iterative improvements based on feedback</li>
             </ol>
-        </div>
+        </section>
 
-        <div class="section no-break">
-            <h2>13. Technical Notes</h2>
+        <section class="section no-break" aria-labelledby="notes-heading">
+            <h2 id="notes-heading">13. Technical Notes</h2>
 
             <h3>13.1 Google Apps Script API</h3>
             <p>The Apps Script must implement the following endpoints:</p>
@@ -731,13 +570,13 @@
 
             <h3>13.4 Error Handling</h3>
             <p>All API calls must include proper error handling with user-friendly error messages.</p>
-        </div>
+        </section>
 
         <hr>
-        <p style="text-align: center; font-size: 9pt; margin-top: 8mm;">
+        <p class="footer-note" id="footer-note">
             <strong>End of Technical Requirements Document</strong>
         </p>
-    </div>
+    </main>
 </body>
 
 </html>
