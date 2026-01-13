@@ -1,0 +1,38 @@
+.search-section {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow:
+        0 4px 6px -1px rgba(0, 0, 0, 0.1),
+        0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    margin-bottom: 2rem;
+    border: 1px solid #e5e7eb;
+}
+
+.search-container {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-end;
+}
+
+.search-container .form-group {
+    flex: 1;
+    margin-bottom: 0;
+}
+
+#edit-form-container {
+    display: none;
+    /* Hidden by default */
+}
+
+/* helper for hidden heading */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}

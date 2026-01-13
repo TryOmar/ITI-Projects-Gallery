@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Project | ITI Projects Gallery</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="submit-project.css">
+    <link rel="stylesheet" href="edit-project.css">
+</head>
+
+<body>
+    <div class="main-container">
+
+        <header class="page-header">
+            <h1>Edit Project</h1>
+            <p>Update your project details</p>
+        </header>
+
+        <main>
+
+            <section class="search-section" aria-labelledby="search-title">
+                <h2 class="section-title" id="search-title">
+                    <i class="bi bi-search"></i>
+                    Find Project
+                </h2>
+
+                <form id="search-form" class="search-container">
+                    <div class="form-group">
+                        <label for="search-id" class="form-label">Project ID</label>
+                        <input type="text" id="search-id" class="form-input" placeholder="Enter the 6-digit Project ID"
+                            required>
+                    </div>
+                    <button type="submit" class="btn btn-primary" id="search-btn">
+                        <span class="btn-text">Load Project</span>
+                        <span class="btn-loader" aria-hidden="true"></span>
+                    </button>
+                </form>
+
+                <div class="feedback-container" style="margin-top: 1rem;">
+                    <div class="alert alert-error" id="search-error" role="alert">
+                        <div class="alert-content">
+                            <p id="search-error-message"></p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="edit-form-container" aria-labelledby="edit-form-title">
+                <h2 class="visually-hidden" id="edit-form-title">Edit Project Form</h2>
+
+                <form id="project-form" class="submit-form" novalidate>
+                    <input type="hidden" id="project-id" name="id">
+
+                    <section class="form-section" aria-labelledby="project-info-title">
+                        <h3 class="section-title" id="project-info-title">
+                            <i class="bi bi-info-circle"></i>
+                            Project Information
+                        </h3>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="title" class="form-label">
+                                    Project Title <span class="required">*</span>
+                                </label>
+                                <input type="text" id="title" name="title" class="form-input"
+                                    placeholder="e.g., Library Management System" required aria-required="true">
+                                <span class="error-message" id="title-error"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="status" class="form-label">Status</label>
+                                <select id="status" name="status" class="form-input">
+                                    <option value="Not Started">Not Started</option>
+                                    <option value="In Progress">In Progress</option>
+                                    <option value="Completed">Completed</option>
+                                </select>
+                                <span class="error-message" id="status-error"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group form-group-full">
+                                <label for="description" class="form-label">
+                                    Project Description <span class="required">*</span>
+                                </label>
+                                <textarea id="description" name="description" class="form-input"
+                                    placeholder="Provide a detailed description of your project, its goals, and key features..."
+                                    rows="5" required aria-required="true"></textarea>
+                                <span class="error-message" id="description-error"></span>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="form-section" aria-labelledby="team-info-title">
+                        <h3 class="section-title" id="team-info-title">
+                            <i class="bi bi-people"></i>
+                            Team Information
+                        </h3>
+
+                        <div class="form-row">
+                            <div class="form-group form-group-full">
+                                <label class="form-label">
+                                    Team Members <span class="required">*</span>
+                                </label>
+                                <div id="team-members-container" class="team-members-container"></div>
+                                <button type="button" id="add-member-btn" class="btn-add-member">
+                                    <i class="bi bi-plus-circle"></i>
+                                    Add Member
+                                </button>
+                                <input type="hidden" id="team" name="team" required>
+                                <span class="error-message" id="team-error"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group form-group-full">
+                                <label for="email" class="form-label">
+                                    Contact Email <span class="required">*</span>
+                                </label>
+                                <input type="email" id="email" name="email" class="form-input"
+                                    placeholder="example@email.com" required aria-required="true">
+                                <span class="error-message" id="email-error"></span>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="form-section" aria-labelledby="project-links-title">
+                        <h3 class="section-title" id="project-links-title">
+                            <i class="bi bi-link-45deg"></i>
+                            Project Links
+                        </h3>
+
+                        <div class="form-row">
+                            <div class="form-group form-group-full">
+                                <label for="link" class="form-label">
+                                    GitHub Repository or Project URL
+                                </label>
+                                <input type="url" id="link" name="link" class="form-input"
+                                    placeholder="https://github.com/username/repository">
+                                <span class="error-message" id="link-error"></span>
+                            </div>
+                        </div>
+                    </section>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary" id="submit-btn">
+                            <span class="btn-text">Update Project</span>
+                            <span class="btn-loader" aria-hidden="true"></span>
+                        </button>
+                    </div>
+                </form>
+
+                <section class="feedback-container" aria-live="polite">
+                    <div class="alert alert-success" id="success-alert" role="alert">
+                        <i class="bi bi-check-circle"></i>
+                        <div class="alert-content">
+                            <h3>Project Updated Successfully!</h3>
+                            <p id="success-message"></p>
+                        </div>
+                    </div>
+
+                    <div class="alert alert-error" id="error-alert" role="alert">
+                        <i class="bi bi-x-circle"></i>
+                        <div class="alert-content">
+                            <h3>Update Failed</h3>
+                            <p id="error-message"></p>
+                        </div>
+                    </div>
+                </section>
+            </section>
+        </main>
+
+    </div>
+
+    <script src="edit-project.js"></script>
+</body>
+
+</html>

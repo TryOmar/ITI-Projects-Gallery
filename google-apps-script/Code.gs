@@ -18,6 +18,12 @@ const COL = {
 };
 
 function doGet(e) {
+  // Check if an ID is provided
+  if (e.parameter && e.parameter.id) {
+    return response(getProjectById(e.parameter.id));
+  }
+  
+  // Otherwise return all projects
   return response(getAllProjects());
 }
 
@@ -35,6 +41,30 @@ function doPost(e) {
 }
 
 // --- Core Functions ---
+
+function getProjectById(id) {
+  const sheet = getSheet();
+  const rows = sheet.getDataRange().getValues();
+  
+  // Find project by ID
+  for (let i = 1; i < rows.length; i++) {
+    if (rows[i][COL.ID] == id) {
+       const r = rows[i];
+       return {
+         id: r[COL.ID],
+         title: r[COL.TITLE],
+         team: r[COL.TEAM],
+         description: r[COL.DESC],
+         link: r[COL.LINK],
+         status: r[COL.STATUS],
+         email: r[COL.EMAIL],
+         visible: r[COL.VISIBLE]
+       };
+    }
+  }
+  
+  return { error: 'Project not found' };
+}
 
 function getAllProjects() {
   const sheet = getSheet();
