@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Your Project | ITI Projects Gallery</title>
+    <meta name="description"
+        content="Edit and update your ITI project submission. Find your projects by email or project ID.">
+    <link rel="stylesheet" href="../assets/css/shared.css">
+    <link rel="stylesheet" href="edit.css">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="navbar-container">
+            <a href="../index.html" class="navbar-brand">
+                <img src="../assets/img/ITI.jpeg" alt="ITI Logo">
+                <span>ITI Projects</span>
+            </a>
+
+            <button class="navbar-toggle" id="navbar-toggle" aria-label="Toggle navigation">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5" />
+                </svg>
+            </button>
+
+            <ul class="navbar-nav" id="navbar-nav">
+                <li><a href="../index.html" class="nav-link">Gallery</a></li>
+                <li><a href="../submit/index.html" class="nav-link">Submit Project</a></li>
+                <li><a href="index.html" class="nav-link active">Edit Project</a></li>
+                <li><a href="../about/index.html" class="nav-link">About</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="edit-page">
+        <div class="container">
+            <!-- Page Header -->
+            <header class="page-header">
+                <h1 class="page-title">Edit Your Project</h1>
+                <p class="page-description">
+                    Find your project using the email address you used during submission, then update your project
+                    details.
+                </p>
+            </header>
+
+            <!-- Step 1: Find Project -->
+            <section class="edit-section" id="find-section">
+                <div class="section-card">
+                    <div class="section-header">
+                        <div class="step-badge">Step 1</div>
+                        <h2>Find Your Project</h2>
+                        <p>Enter the email address you used when submitting your project</p>
+                    </div>
+
+                    <form id="find-form" class="find-form">
+                        <div class="form-group">
+                            <label for="lookup-email" class="form-label">
+                                Your Email Address <span class="required">*</span>
+                            </label>
+                            <div class="input-group">
+                                <input type="email" id="lookup-email" class="form-input"
+                                    placeholder="Enter the email you used during submission" required>
+                                <button type="submit" class="btn btn-primary" id="find-btn">
+                                    <span class="btn-text">Find Projects</span>
+                                    <span class="btn-loader" aria-hidden="true"></span>
+                                </button>
+                            </div>
+                            <span class="error-message" id="lookup-error"></span>
+                        </div>
+                    </form>
+
+                    <!-- Project Selection -->
+                    <div class="projects-list hidden" id="projects-list">
+                        <h3 class="list-title">Your Projects</h3>
+                        <p class="list-description">Select the project you want to edit:</p>
+                        <div id="projects-container"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Step 2: Edit Project -->
+            <section class="edit-section hidden" id="edit-section">
+                <div class="section-card">
+                    <div class="section-header">
+                        <div class="step-badge">Step 2</div>
+                        <h2>Update Project Details</h2>
+                        <p>Modify the fields you want to update</p>
+                    </div>
+
+                    <form id="edit-form" class="edit-form">
+                        <!-- Project Title -->
+                        <div class="form-group">
+                            <label for="edit-title" class="form-label">
+                                Project Title <span class="required">*</span>
+                            </label>
+                            <input type="text" id="edit-title" name="title" class="form-input" required>
+                            <span class="error-message" id="title-error"></span>
+                        </div>
+
+                        <!-- Status -->
+                        <div class="form-group">
+                            <label for="edit-status" class="form-label">Status</label>
+                            <select id="edit-status" name="status" class="form-input">
+                                <option value="Not Started">Not Started</option>
+                                <option value="In Progress">In Progress</option>
+                                <option value="Completed">Completed</option>
+                            </select>
+                        </div>
+
+                        <!-- Description -->
+                        <div class="form-group">
+                            <label for="edit-description" class="form-label">
+                                Description <span class="required">*</span>
+                            </label>
+                            <textarea id="edit-description" name="description" class="form-input" rows="5"
+                                required></textarea>
+                            <span class="error-message" id="description-error"></span>
+                        </div>
+
+                        <!-- Team Members -->
+                        <div class="form-group">
+                            <label for="edit-team" class="form-label">
+                                Team Members <span class="required">*</span>
+                            </label>
+                            <input type="text" id="edit-team" name="team" class="form-input"
+                                placeholder="e.g., Ahmed, Sara, Mohamed">
+                            <span class="helper-text">Separate team member names with commas</span>
+                            <span class="error-message" id="team-error"></span>
+                        </div>
+
+                        <!-- GitHub URL -->
+                        <div class="form-group">
+                            <label for="edit-github" class="form-label">
+                                GitHub Repository URL
+                            </label>
+                            <input type="url" id="edit-github" name="github" class="form-input"
+                                placeholder="https://github.com/username/project">
+                            <span class="error-message" id="github-error"></span>
+                        </div>
+
+                        <!-- Demo URL -->
+                        <div class="form-group">
+                            <label for="edit-demo" class="form-label">
+                                Demo / Live URL
+                            </label>
+                            <input type="url" id="edit-demo" name="demo" class="form-input"
+                                placeholder="https://your-demo-site.com">
+                            <span class="error-message" id="demo-error"></span>
+                        </div>
+
+                        <!-- Hidden fields -->
+                        <input type="hidden" id="edit-project-id" name="projectId">
+                        <input type="hidden" id="edit-email" name="email">
+
+                        <!-- Form Actions -->
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-secondary" id="cancel-btn">
+                                Cancel
+                            </button>
+                            <button type="submit" class="btn btn-primary" id="save-btn">
+                                <span class="btn-text">Save Changes</span>
+                                <span class="btn-loader" aria-hidden="true"></span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Feedback Messages -->
+            <div class="feedback-container">
+                <div class="alert alert-success hidden" id="success-alert" role="alert">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                        viewBox="0 0 16 16">
+                        <path
+                            d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+                    </svg>
+                    <div class="alert-content">
+                        <h3>Project Updated Successfully!</h3>
+                        <p id="success-message">Your changes have been saved.</p>
+                    </div>
+                </div>
+
+                <div class="alert alert-error hidden" id="error-alert" role="alert">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                        viewBox="0 0 16 16">
+                        <path
+                            d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z" />
+                    </svg>
+                    <div class="alert-content">
+                        <h3>Error</h3>
+                        <p id="error-message"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <h3>ITI Projects Gallery</h3>
+                <p>Showcasing the innovation and creativity of ITI students.</p>
+            </div>
+
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="../index.html">Gallery</a></li>
+                    <li><a href="../submit/index.html">Submit Project</a></li>
+                    <li><a href="index.html">Edit Project</a></li>
+                    <li><a href="../about/index.html">About</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 ITI Projects Gallery. Made with ❤️ by ITI Students</p>
+        </div>
+    </footer>
+
+    <script src="../assets/js/config.js"></script>
+    <script src="edit.js"></script>
+    <script src="../assets/js/secret-admin.js"></script>
+</body>
+
+</html>

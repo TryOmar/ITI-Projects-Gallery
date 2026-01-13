@@ -5,11 +5,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Submit Your Project | ITI Projects Gallery</title>
-    <link rel="stylesheet" href="submit-project.css">
+    <meta name="description" content="Submit your ITI project to the gallery and showcase your work to the community.">
+    <link rel="stylesheet" href="../assets/css/shared.css">
+    <link rel="stylesheet" href="submit.css">
 </head>
 
 <body>
-    <div class="main-container">
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="navbar-container">
+            <a href="../index.html" class="navbar-brand">
+                <img src="../assets/img/ITI.jpeg" alt="ITI Logo">
+                <span>ITI Projects</span>
+            </a>
+
+            <button class="navbar-toggle" id="navbar-toggle" aria-label="Toggle navigation">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5" />
+                </svg>
+            </button>
+
+            <ul class="navbar-nav" id="navbar-nav">
+                <li><a href="../index.html" class="nav-link">Gallery</a></li>
+                <li><a href="index.html" class="nav-link active">Submit Project</a></li>
+                <li><a href="../edit/index.html" class="nav-link">Edit Project</a></li>
+                <li><a href="../about/index.html" class="nav-link">About</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="main-container with-navbar">
         <!-- Header Section -->
         <header class="page-header">
             <h1>Submit Your Project</h1>
@@ -133,13 +159,22 @@
                 </h2>
 
                 <div class="form-row">
-                    <div class="form-group form-group-full">
-                        <label for="link" class="form-label">
-                            GitHub Repository or Project URL
+                    <div class="form-group">
+                        <label for="github" class="form-label">
+                            GitHub Repository URL
                         </label>
-                        <input type="url" id="link" name="link" class="form-input"
+                        <input type="url" id="github" name="github" class="form-input"
                             placeholder="https://github.com/username/repository">
-                        <span class="error-message" id="link-error"></span>
+                        <span class="error-message" id="github-error"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="demo" class="form-label">
+                            Demo / Live URL
+                        </label>
+                        <input type="url" id="demo" name="demo" class="form-input"
+                            placeholder="https://your-demo-site.com">
+                        <span class="error-message" id="demo-error"></span>
                     </div>
                 </div>
             </section>
@@ -181,7 +216,16 @@
         </div>
     </div>
 
-    <script src="submit-project.js"></script>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-bottom">
+            <p>&copy; 2026 ITI Projects Gallery. Made with ❤️ by ITI Students</p>
+        </div>
+    </footer>
+
+    <script src="../assets/js/config.js"></script>
+    <script src="submit.js"></script>
+    <script src="../assets/js/secret-admin.js"></script>
 </body>
 
 </html>

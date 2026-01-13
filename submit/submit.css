@@ -64,6 +64,112 @@ body {
 
 
 /* ===========================
+   Navbar
+   =========================== */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-color);
+    z-index: 1000;
+    transition: all var(--transition-base);
+}
+
+.navbar.scrolled {
+    box-shadow: var(--shadow-md);
+}
+
+.navbar-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    text-decoration: none;
+    font-weight: var(--font-weight-bold);
+    color: var(--text-primary);
+}
+
+.navbar-brand img {
+    height: 32px;
+    width: 32px;
+    border-radius: var(--radius-sm);
+    object-fit: cover;
+}
+
+.navbar-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--text-primary);
+    cursor: pointer;
+    padding: var(--spacing-xs);
+}
+
+.navbar-nav {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    list-style: none;
+}
+
+.nav-link {
+    padding: var(--spacing-xs) var(--spacing-md);
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-weight: var(--font-weight-medium);
+    border-radius: var(--radius-md);
+    transition: all var(--transition-base);
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: var(--primary-color);
+    background: var(--primary-light);
+}
+
+@media (max-width: 768px) {
+    .navbar-toggle {
+        display: block;
+    }
+
+    .navbar-nav {
+        display: none;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        background: var(--white);
+        padding: var(--spacing-md);
+        border-bottom: 1px solid var(--border-color);
+        box-shadow: var(--shadow-md);
+    }
+
+    .navbar-nav.active {
+        display: flex;
+    }
+
+    .nav-link {
+        display: block;
+        padding: var(--spacing-md);
+    }
+}
+
+
+/* ===========================
    Layout & Container
    =========================== */
 .main-container {
@@ -73,9 +179,17 @@ body {
     min-height: 100vh;
 }
 
+.main-container.with-navbar {
+    padding-top: calc(60px + var(--spacing-xl));
+}
+
 @media (min-width: 768px) {
     .main-container {
         padding: var(--spacing-2xl) var(--spacing-lg);
+    }
+
+    .main-container.with-navbar {
+        padding-top: calc(60px + var(--spacing-2xl));
     }
 }
 
@@ -492,6 +606,106 @@ select.form-input {
     color: var(--error-color);
 }
 
+/* Success Details Styling */
+.success-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+}
+
+.success-info-card {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.875rem 1rem;
+    border-radius: var(--radius-md);
+    transition: all var(--transition-base);
+}
+
+.success-info-card.email-card {
+    background: linear-gradient(135deg, #dbeafe 0%, #e0e7ff 100%);
+    border: 1px solid #bfdbfe;
+}
+
+.success-info-card.id-card {
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+}
+
+.success-info-card .info-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-md);
+    flex-shrink: 0;
+}
+
+.email-card .info-icon {
+    background: var(--primary-color);
+    color: var(--white);
+}
+
+.id-card .info-icon {
+    background: var(--border-color);
+    color: var(--text-secondary);
+}
+
+.success-info-card .info-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+}
+
+.success-info-card .info-label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: var(--text-secondary);
+}
+
+.success-info-card .info-value {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.success-info-card .info-value.secondary {
+    font-weight: 500;
+    color: var(--text-secondary);
+    font-family: monospace;
+}
+
+.success-hint {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: #065f46;
+    margin: 0;
+    padding: 0 0.25rem;
+}
+
+.success-hint svg {
+    flex-shrink: 0;
+    color: var(--success-color);
+}
+
+.success-hint a {
+    color: var(--primary-color);
+    font-weight: 600;
+    text-decoration: none;
+    transition: color var(--transition-base);
+}
+
+.success-hint a:hover {
+    color: var(--primary-hover);
+    text-decoration: underline;
+}
+
 
 /* ===========================
    Animations
@@ -613,4 +827,28 @@ select.form-input {
     .feedback-container {
         display: none;
     }
+}
+
+
+/* ===========================
+   Utility Classes
+   =========================== */
+.hidden {
+    display: none !important;
+}
+
+.visible {
+    display: block !important;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
 }

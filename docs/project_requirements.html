@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,19 +16,21 @@
                 margin: 0;
                 padding: 0;
             }
-            
+
             .page-break {
                 page-break-before: always;
             }
-            
+
             .no-break {
                 page-break-inside: avoid;
             }
-            
-            h1, h2, h3 {
+
+            h1,
+            h2,
+            h3 {
                 page-break-after: avoid;
             }
-            
+
             table {
                 page-break-inside: avoid;
             }
@@ -95,7 +98,8 @@
             text-align: justify;
         }
 
-        ul, ol {
+        ul,
+        ol {
             margin-left: 10mm;
             margin-bottom: 4mm;
         }
@@ -104,7 +108,8 @@
             margin-bottom: 2mm;
         }
 
-        ul ul, ol ul {
+        ul ul,
+        ol ul {
             margin-top: 2mm;
             margin-bottom: 2mm;
         }
@@ -116,7 +121,8 @@
             font-size: 10pt;
         }
 
-        th, td {
+        th,
+        td {
             border: 1px solid #000;
             padding: 3mm;
             text-align: left;
@@ -168,20 +174,25 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <h1>ITI Projects Gallery</h1>
         <div class="meta-info">
             <strong>Technical Requirements Document</strong><br>
             Version 1.0<br>
-            Document Date: December 2024
+            Document Date: December 2026
         </div>
 
         <div class="section no-break">
             <h2>1. Project Overview</h2>
-            <p>ITI Projects Gallery is a web-based gallery system designed to showcase projects created by ITI students during their 9-month training program. The system is architected to provide maximum ease of use for project submission and editing while maintaining a lightweight infrastructure without traditional backend requirements.</p>
-            
-            <p>The system leverages HTML, CSS, and JavaScript for the frontend interface, with Google Sheets and Google Apps Script serving as the backend infrastructure and API layer respectively.</p>
+            <p>ITI Projects Gallery is a web-based gallery system designed to showcase projects created by ITI students
+                during their 9-month training program. The system is architected to provide maximum ease of use for
+                project submission and editing while maintaining a lightweight infrastructure without traditional
+                backend requirements.</p>
+
+            <p>The system leverages HTML, CSS, and JavaScript for the frontend interface, with Google Sheets and Google
+                Apps Script serving as the backend infrastructure and API layer respectively.</p>
         </div>
 
         <div class="section no-break">
@@ -197,7 +208,7 @@
 
         <div class="section no-break">
             <h2>3. Technology Stack</h2>
-            
+
             <h3>3.1 Frontend Technologies</h3>
             <ul>
                 <li>HTML5</li>
@@ -221,7 +232,7 @@
 
         <div class="section">
             <h2>4. System Architecture</h2>
-            
+
             <h3>4.1 Application Pages</h3>
             <p>The system consists of five HTML pages, three required and two optional:</p>
 
@@ -471,7 +482,7 @@
 
         <div class="section">
             <h2>6. Database Schema</h2>
-            
+
             <h3>6.1 Google Sheet Structure</h3>
             <p>Each row in the Google Sheet represents a single project. The following columns must be implemented:</p>
 
@@ -572,7 +583,7 @@
         <div class="section">
             <h2>7. Project Status Values</h2>
             <p>The Status field must accept exactly three predefined values:</p>
-            
+
             <table>
                 <thead>
                     <tr>
@@ -600,7 +611,7 @@
         <div class="section no-break">
             <h2>8. Visibility Control Mechanism</h2>
             <p>Project visibility in the public gallery is controlled by the Visible field in the Google Sheet:</p>
-            
+
             <ul>
                 <li><strong>TRUE:</strong> Project is visible in the public gallery</li>
                 <li><strong>FALSE:</strong> Project is hidden from the public gallery</li>
@@ -612,7 +623,7 @@
         <div class="section no-break">
             <h2>9. Edit Authorization Logic</h2>
             <p>The system implements the following rules for project editing:</p>
-            
+
             <ul>
                 <li>Users can edit only their own projects</li>
                 <li>Project ownership is verified using Email and Project ID</li>
@@ -640,7 +651,7 @@
         <div class="section no-break">
             <h2>11. Future Enhancement Opportunities</h2>
             <p>The following features may be considered for future iterations:</p>
-            
+
             <ul>
                 <li>Featured projects highlighting system</li>
                 <li>User engagement features (likes, ratings, comments)</li>
@@ -657,7 +668,7 @@
 
         <div class="section">
             <h2>12. Implementation Roadmap</h2>
-            
+
             <h3>Phase 1: Backend Setup</h3>
             <ol>
                 <li>Create Google Sheet with specified column structure</li>
@@ -703,7 +714,7 @@
 
         <div class="section no-break">
             <h2>13. Technical Notes</h2>
-            
+
             <h3>13.1 Google Apps Script API</h3>
             <p>The Apps Script must implement the following endpoints:</p>
             <ul>
@@ -715,7 +726,8 @@
             <p>Ensure Google Apps Script is configured to accept requests from the deployed frontend domain.</p>
 
             <h3>13.3 Data Validation</h3>
-            <p>Implement validation on both client-side (JavaScript) and server-side (Apps Script) to ensure data integrity.</p>
+            <p>Implement validation on both client-side (JavaScript) and server-side (Apps Script) to ensure data
+                integrity.</p>
 
             <h3>13.4 Error Handling</h3>
             <p>All API calls must include proper error handling with user-friendly error messages.</p>
@@ -727,4 +739,5 @@
         </p>
     </div>
 </body>
+
 </html>
