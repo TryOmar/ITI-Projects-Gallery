@@ -114,8 +114,8 @@
 /* Hero Section */
 .about-hero {
     padding: var(--spacing-2xl) var(--spacing-md);
-    background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
-    color: var(--white);
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #dbeafe 100%);
+    color: var(--text-primary);
     position: relative;
     overflow: hidden;
 }
@@ -127,8 +127,8 @@
     right: 0;
     width: 50%;
     height: 100%;
-    background: linear-gradient(135deg, rgba(99, 102, 241, 0.2) 0%, rgba(168, 85, 247, 0.2) 100%);
-    opacity: 0.5;
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(96, 165, 250, 0.15) 100%);
+    opacity: 0.8;
 }
 
 .about-hero .container {
@@ -148,10 +148,11 @@
     line-height: 1.2;
     margin-bottom: var(--spacing-lg);
     animation: fadeInDown 0.5s ease-out;
+    color: var(--text-primary);
 }
 
 .gradient-text {
-    background: linear-gradient(135deg, #818cf8 0%, #c084fc 100%);
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -159,7 +160,7 @@
 
 .about-hero-description {
     font-size: 1.125rem;
-    color: rgba(255, 255, 255, 0.8);
+    color: var(--text-secondary);
     line-height: 1.7;
     animation: fadeInUp 0.5s ease-out;
 }
@@ -236,7 +237,7 @@
     justify-content: center;
     width: 64px;
     height: 64px;
-    background: linear-gradient(135deg, var(--primary-color) 0%, #6366f1 100%);
+    background: linear-gradient(135deg, var(--primary-color) 0%, #2563eb 100%);
     color: var(--white);
     border-radius: var(--radius-md);
     margin-bottom: var(--spacing-md);
@@ -287,7 +288,7 @@
     justify-content: center;
     width: 40px;
     height: 40px;
-    background: linear-gradient(135deg, var(--primary-color) 0%, #6366f1 100%);
+    background: linear-gradient(135deg, var(--primary-color) 0%, #2563eb 100%);
     color: var(--white);
     font-weight: var(--font-weight-bold);
     font-size: 1.125rem;
@@ -395,7 +396,7 @@
 
 /* CTA Section */
 .section-cta {
-    background: linear-gradient(135deg, var(--primary-color) 0%, #6366f1 100%);
+    background: linear-gradient(135deg, var(--primary-color) 0%, #2563eb 100%);
     color: var(--white);
 }
 
@@ -434,9 +435,10 @@
 
 /* Footer */
 .footer {
-    background: #1f2937;
-    color: var(--white);
+    background: #f8fafc;
+    color: var(--text-primary);
     padding: var(--spacing-2xl) var(--spacing-md);
+    border-top: 1px solid var(--border-color);
 }
 
 .footer-container {
@@ -451,10 +453,11 @@
     font-size: 1.25rem;
     font-weight: var(--font-weight-bold);
     margin-bottom: var(--spacing-sm);
+    color: var(--text-primary);
 }
 
 .footer-brand p {
-    color: #9ca3af;
+    color: var(--text-secondary);
     font-size: 0.875rem;
 }
 
@@ -464,6 +467,7 @@
     text-transform: uppercase;
     letter-spacing: 0.05em;
     margin-bottom: var(--spacing-md);
+    color: var(--text-primary);
 }
 
 .footer-links {
@@ -475,24 +479,24 @@
 }
 
 .footer-links a {
-    color: #9ca3af;
+    color: var(--text-secondary);
     text-decoration: none;
     font-size: 0.875rem;
     transition: color var(--transition-base);
 }
 
 .footer-links a:hover {
-    color: var(--white);
+    color: var(--primary-color);
 }
 
 .footer-bottom {
     max-width: 1200px;
     margin: var(--spacing-xl) auto 0;
     padding-top: var(--spacing-xl);
-    border-top: 1px solid #374151;
+    border-top: 1px solid var(--border-color);
     text-align: center;
     font-size: 0.875rem;
-    color: #9ca3af;
+    color: var(--text-secondary);
 }
 
 @media (max-width: 768px) {

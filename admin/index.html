@@ -6,16 +6,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel | ITI Projects Gallery</title>
     <meta name="robots" content="noindex, nofollow">
-    <link rel="stylesheet" href="submit-project.css">
+    <link rel="stylesheet" href="../assets/css/shared.css">
     <link rel="stylesheet" href="admin.css">
 </head>
 
 <body>
+    <!-- Login Modal (Password Protection) -->
+    <div class="login-overlay" id="login-overlay">
+        <div class="login-modal">
+            <div class="login-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" viewBox="0 0 16 16">
+                    <path
+                        d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2m3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2" />
+                </svg>
+            </div>
+            <h2>Admin Access</h2>
+            <p>Enter the admin password to continue</p>
+            <form id="login-form">
+                <div class="login-input-group">
+                    <input type="password" id="admin-password" placeholder="Enter password" autocomplete="off" required>
+                    <button type="submit" class="btn btn-primary">
+                        <span class="btn-text">Unlock</span>
+                        <span class="btn-loader"></span>
+                    </button>
+                </div>
+                <p class="login-error hidden" id="login-error">Incorrect password. Please try again.</p>
+            </form>
+        </div>
+    </div>
+
     <!-- Navigation -->
     <nav class="navbar" id="navbar">
         <div class="navbar-container">
-            <a href="index.html" class="navbar-brand">
-                <img src="img/ITI.jpeg" alt="ITI Logo">
+            <a href="../index.html" class="navbar-brand">
+                <img src="../assets/img/ITI.jpeg" alt="ITI Logo">
                 <span>ITI Projects</span>
             </a>
 
@@ -186,7 +210,87 @@
         </div>
     </div>
 
-    <script src="config.js"></script>
+    <!-- Edit Project Modal -->
+    <div class="modal-overlay hidden" id="edit-modal">
+        <div class="modal modal-lg">
+            <div class="modal-header">
+                <h3>Edit Project</h3>
+                <button class="modal-close" id="edit-modal-close-btn" aria-label="Close">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                        viewBox="0 0 16 16">
+                        <path
+                            d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
+                    </svg>
+                </button>
+            </div>
+            <form id="edit-form">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="form-label" for="edit-title">Project Title <span class="required">*</span></label>
+                        <input type="text" class="form-input" id="edit-title" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="edit-description">Description</label>
+                        <textarea class="form-input" id="edit-description" rows="4"></textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="edit-status">Status</label>
+                            <select class="form-input" id="edit-status">
+                                <option value="Not Started">Not Started</option>
+                                <option value="In Progress">In Progress</option>
+                                <option value="Completed">Completed</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="edit-email">Email</label>
+                            <input type="email" class="form-input" id="edit-email">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="edit-team">Team Members</label>
+                        <input type="text" class="form-input" id="edit-team" placeholder="Comma-separated names">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="edit-github">GitHub URL</label>
+                            <input type="url" class="form-input" id="edit-github" placeholder="https://github.com/...">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="edit-demo">Demo URL</label>
+                            <input type="url" class="form-input" id="edit-demo" placeholder="https://...">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            <input type="checkbox" id="edit-visible">
+                            Visible in Gallery
+                        </label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="edit-modal-cancel-btn">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="edit-modal-save-btn">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-bottom">
+            <p>&copy; 2026 ITI Projects Gallery. Made with ❤️ by ITI Students</p>
+        </div>
+    </footer>
+
+    <script src="../assets/js/config.js"></script>
     <script src="admin.js"></script>
 </body>
 

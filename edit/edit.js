@@ -30,7 +30,8 @@ const editFields = {
     status: document.getElementById('edit-status'),
     description: document.getElementById('edit-description'),
     team: document.getElementById('edit-team'),
-    link: document.getElementById('edit-link'),
+    github: document.getElementById('edit-github'),
+    demo: document.getElementById('edit-demo'),
     projectId: document.getElementById('edit-project-id'),
     email: document.getElementById('edit-email')
 };
@@ -294,7 +295,8 @@ function populateEditForm(project) {
     editFields.status.value = project.status || 'Not Started';
     editFields.description.value = project.description || '';
     editFields.team.value = project.team || '';
-    editFields.link.value = project.link || '';
+    editFields.github.value = project.github || '';
+    editFields.demo.value = project.demo || '';
     editFields.projectId.value = project.id;
     editFields.email.value = userEmail;
 }
@@ -332,11 +334,20 @@ function validateEditForm() {
         isValid = false;
     }
 
-    // Link (optional)
-    if (editFields.link.value.trim()) {
-        const linkValidation = Utils.validateField('link', editFields.link.value);
-        if (!linkValidation.isValid) {
-            showFieldError('link', linkValidation.error);
+    // GitHub (optional)
+    if (editFields.github.value.trim()) {
+        const githubValidation = Utils.validateField('link', editFields.github.value);
+        if (!githubValidation.isValid) {
+            showFieldError('github', 'Please enter a valid GitHub URL');
+            isValid = false;
+        }
+    }
+
+    // Demo (optional)
+    if (editFields.demo.value.trim()) {
+        const demoValidation = Utils.validateField('link', editFields.demo.value);
+        if (!demoValidation.isValid) {
+            showFieldError('demo', 'Please enter a valid URL');
             isValid = false;
         }
     }
@@ -369,7 +380,8 @@ async function handleEditSubmit(event) {
         status: editFields.status.value,
         description: editFields.description.value.trim(),
         team: editFields.team.value.trim(),
-        link: editFields.link.value.trim(),
+        github: editFields.github.value.trim(),
+        demo: editFields.demo.value.trim(),
         email: userEmail // Required for authorization
     };
 

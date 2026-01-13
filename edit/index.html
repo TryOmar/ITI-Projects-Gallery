@@ -7,7 +7,7 @@
     <title>Edit Your Project | ITI Projects Gallery</title>
     <meta name="description"
         content="Edit and update your ITI project submission. Find your projects by email or project ID.">
-    <link rel="stylesheet" href="submit-project.css">
+    <link rel="stylesheet" href="../assets/css/shared.css">
     <link rel="stylesheet" href="edit.css">
 </head>
 
@@ -15,8 +15,8 @@
     <!-- Navigation -->
     <nav class="navbar" id="navbar">
         <div class="navbar-container">
-            <a href="index.html" class="navbar-brand">
-                <img src="img/ITI.jpeg" alt="ITI Logo">
+            <a href="../index.html" class="navbar-brand">
+                <img src="../assets/img/ITI.jpeg" alt="ITI Logo">
                 <span>ITI Projects</span>
             </a>
 
@@ -28,10 +28,10 @@
             </button>
 
             <ul class="navbar-nav" id="navbar-nav">
-                <li><a href="index.html" class="nav-link">Gallery</a></li>
-                <li><a href="submit-project.html" class="nav-link">Submit Project</a></li>
-                <li><a href="edit.html" class="nav-link active">Edit Project</a></li>
-                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="../index.html" class="nav-link">Gallery</a></li>
+                <li><a href="../submit/index.html" class="nav-link">Submit Project</a></li>
+                <li><a href="index.html" class="nav-link active">Edit Project</a></li>
+                <li><a href="../about/index.html" class="nav-link">About</a></li>
             </ul>
         </div>
     </nav>
@@ -132,14 +132,24 @@
                             <span class="error-message" id="team-error"></span>
                         </div>
 
-                        <!-- Project Link -->
+                        <!-- GitHub URL -->
                         <div class="form-group">
-                            <label for="edit-link" class="form-label">
-                                Project Link
+                            <label for="edit-github" class="form-label">
+                                GitHub Repository URL
                             </label>
-                            <input type="url" id="edit-link" name="link" class="form-input"
+                            <input type="url" id="edit-github" name="github" class="form-input"
                                 placeholder="https://github.com/username/project">
-                            <span class="error-message" id="link-error"></span>
+                            <span class="error-message" id="github-error"></span>
+                        </div>
+
+                        <!-- Demo URL -->
+                        <div class="form-group">
+                            <label for="edit-demo" class="form-label">
+                                Demo / Live URL
+                            </label>
+                            <input type="url" id="edit-demo" name="demo" class="form-input"
+                                placeholder="https://your-demo-site.com">
+                            <span class="error-message" id="demo-error"></span>
                         </div>
 
                         <!-- Hidden fields -->
@@ -200,21 +210,22 @@
             <div class="footer-section">
                 <h4>Quick Links</h4>
                 <ul class="footer-links">
-                    <li><a href="index.html">Gallery</a></li>
-                    <li><a href="submit-project.html">Submit Project</a></li>
-                    <li><a href="edit.html">Edit Project</a></li>
-                    <li><a href="about.html">About</a></li>
+                    <li><a href="../index.html">Gallery</a></li>
+                    <li><a href="../submit/index.html">Submit Project</a></li>
+                    <li><a href="index.html">Edit Project</a></li>
+                    <li><a href="../about/index.html">About</a></li>
                 </ul>
             </div>
         </div>
 
         <div class="footer-bottom">
-            <p>&copy; 2024 ITI Projects Gallery. Made with ❤️ by ITI Students</p>
+            <p>&copy; 2026 ITI Projects Gallery. Made with ❤️ by ITI Students</p>
         </div>
     </footer>
 
-    <script src="config.js"></script>
+    <script src="../assets/js/config.js"></script>
     <script src="edit.js"></script>
+    <script src="../assets/js/secret-admin.js"></script>
 </body>
 
 </html>

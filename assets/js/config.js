@@ -3,6 +3,11 @@
  * 
  * This file contains all configuration settings for the application.
  * Switch between LOCAL and PRODUCTION modes for development/deployment.
+ * 
+ * LOCAL MODE: Uses the local testing server in /server folder
+ *             Run: cd server && node server.js
+ * 
+ * PRODUCTION MODE: Uses Google Apps Script backend
  */
 
 const CONFIG = {
@@ -11,6 +16,7 @@ const CONFIG = {
 
     // API Endpoints
     API: {
+        // Local testing server (run from /server folder)
         LOCAL: 'http://localhost:3000/api',
         PRODUCTION: 'https://script.google.com/macros/s/AKfycby2zHkVnimyonJi0rF2AKtqHwfJFPfDLDQ2pgRN7vYaBy5dDojJyvTbMT-WycEFZm8/exec'
     },
@@ -235,6 +241,25 @@ const ApiService = {
         return this.request('', {
             method: 'POST',
             body: JSON.stringify({ action: 'delete', id })
+        });
+    },
+
+    /**
+     * Verifies admin password
+     * @param {string} password - Admin password
+     * @returns {Promise<Object>} Verification response
+     */
+    async verifyAdminPassword(password) {
+        if (CONFIG.ENV === 'LOCAL') {
+            return this.request('/admin/verify', {
+                method: 'POST',
+                body: JSON.stringify({ password })
+            });
+        }
+        // For production, use a different approach (e.g., hashed comparison)
+        return this.request('', {
+            method: 'POST',
+            body: JSON.stringify({ action: 'verifyAdmin', password })
         });
     }
 };

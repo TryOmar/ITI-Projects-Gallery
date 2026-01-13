@@ -4,6 +4,17 @@
  */
 
 // ===========================
+// Login Elements
+// ===========================
+const loginOverlay = document.getElementById('login-overlay');
+const loginForm = document.getElementById('login-form');
+const loginPassword = document.getElementById('admin-password');
+const loginError = document.getElementById('login-error');
+
+// Session key for admin access (stored in sessionStorage)
+const ADMIN_SESSION_KEY = 'iti_admin_authenticated';
+
+// ===========================
 // DOM Elements
 // ===========================
 const loadingContainer = document.getElementById('loading-container');
@@ -29,11 +40,29 @@ const modalCloseBtn = document.getElementById('modal-close-btn');
 const modalCancelBtn = document.getElementById('modal-cancel-btn');
 const modalConfirmBtn = document.getElementById('modal-confirm-btn');
 
+// Edit modal elements
+const editModal = document.getElementById('edit-modal');
+const editForm = document.getElementById('edit-form');
+const editModalCloseBtn = document.getElementById('edit-modal-close-btn');
+const editModalCancelBtn = document.getElementById('edit-modal-cancel-btn');
+const editModalSaveBtn = document.getElementById('edit-modal-save-btn');
+
+// Edit form fields
+const editTitle = document.getElementById('edit-title');
+const editDescription = document.getElementById('edit-description');
+const editStatus = document.getElementById('edit-status');
+const editEmail = document.getElementById('edit-email');
+const editTeam = document.getElementById('edit-team');
+const editGithub = document.getElementById('edit-github');
+const editDemo = document.getElementById('edit-demo');
+const editVisible = document.getElementById('edit-visible');
+
 // ===========================
 // State
 // ===========================
 let allProjects = [];
 let projectToDelete = null;
+let projectToEdit = null;
 
 // ===========================
 // UI Functions
@@ -136,16 +165,24 @@ function createTableRow(project) {
             <td class="email-cell">
                 ${Utils.escapeHtml(project.email || 'N/A')}
             </td>
-            <td>
+            <td class="visibility-cell">
                 <label class="visibility-toggle">
                     <input type="checkbox" 
                         ${isVisible ? 'checked' : ''} 
                         onchange="handleVisibilityToggle('${project.id}', this.checked)">
                     <span class="toggle-slider"></span>
+                    <span class="visibility-status ${isVisible ? 'visible' : 'hidden'}">${isVisible ? 'Visible' : 'Hidden'}</span>
                 </label>
             </td>
             <td>
                 <div class="action-buttons">
+                    <button class="btn-icon-action btn-edit" 
+                        onclick="openEditModal('${project.id}')"
+                        title="Edit project">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
+                        </svg>
+                    </button>
                     <button class="btn-icon-action btn-delete" 
                         onclick="openDeleteModal('${project.id}')"
                         title="Delete project">
@@ -233,6 +270,13 @@ async function handleVisibilityToggle(projectId, visible) {
             updateStats(allProjects);
         }
 
+        // Update the status label in UI
+        const statusLabel = document.querySelector(`tr[data-id="${projectId}"] .visibility-status`);
+        if (statusLabel) {
+            statusLabel.textContent = visible ? 'Visible' : 'Hidden';
+            statusLabel.className = `visibility-status ${visible ? 'visible' : 'hidden'}`;
+        }
+
         showSuccessToast(`Project ${visible ? 'shown' : 'hidden'} successfully`);
 
     } catch (error) {
@@ -318,6 +362,100 @@ async function confirmDelete() {
 }
 
 // ===========================
+// Edit Modal
+// ===========================
+
+/**
+ * Opens the edit modal with project data
+ * @param {string} projectId - Project ID to edit
+ */
+function openEditModal(projectId) {
+    projectToEdit = allProjects.find(p => p.id === projectId);
+
+    if (!projectToEdit) {
+        showErrorToast('Project not found');
+        return;
+    }
+
+    // Populate form fields
+    editTitle.value = projectToEdit.title || '';
+    editDescription.value = projectToEdit.description || '';
+    editStatus.value = projectToEdit.status || 'Not Started';
+    editEmail.value = projectToEdit.email || '';
+    editTeam.value = projectToEdit.team || '';
+    editGithub.value = projectToEdit.github || '';
+    editDemo.value = projectToEdit.demo || '';
+    editVisible.checked = projectToEdit.visible === true;
+
+    editModal.classList.remove('hidden');
+}
+
+// Make function globally available for inline onclick
+window.openEditModal = openEditModal;
+
+/**
+ * Closes the edit modal
+ */
+function closeEditModal() {
+    editModal.classList.add('hidden');
+    projectToEdit = null;
+    editForm.reset();
+}
+
+/**
+ * Saves project edits
+ * @param {Event} e - Form submit event
+ */
+async function saveProjectEdit(e) {
+    e.preventDefault();
+
+    if (!projectToEdit) return;
+
+    const projectId = projectToEdit.id;
+
+    // Disable buttons during operation
+    editModalSaveBtn.disabled = true;
+    editModalCancelBtn.disabled = true;
+
+    try {
+        const updatedData = {
+            title: editTitle.value.trim(),
+            description: editDescription.value.trim(),
+            status: editStatus.value,
+            email: editEmail.value.trim(),
+            team: editTeam.value.trim(),
+            github: editGithub.value.trim(),
+            demo: editDemo.value.trim(),
+            visible: editVisible.checked
+        };
+
+        const response = await ApiService.updateProject(projectId, updatedData);
+
+        if (response.error) {
+            throw new Error(response.error);
+        }
+
+        // Update local state
+        const index = allProjects.findIndex(p => p.id === projectId);
+        if (index !== -1) {
+            allProjects[index] = { ...allProjects[index], ...updatedData };
+            updateStats(allProjects);
+            renderProjects(allProjects);
+        }
+
+        closeEditModal();
+        showSuccessToast('Project updated successfully');
+
+    } catch (error) {
+        console.error('Error updating project:', error);
+        showErrorToast(error.message || 'Failed to update project');
+    } finally {
+        editModalSaveBtn.disabled = false;
+        editModalCancelBtn.disabled = false;
+    }
+}
+
+// ===========================
 // Event Listeners
 // ===========================
 
@@ -330,22 +468,39 @@ function initEventListeners() {
         retryBtn.addEventListener('click', fetchProjects);
     }
 
-    // Modal events
+    // Delete Modal events
     modalCloseBtn.addEventListener('click', closeDeleteModal);
     modalCancelBtn.addEventListener('click', closeDeleteModal);
     modalConfirmBtn.addEventListener('click', confirmDelete);
 
-    // Close modal on overlay click
+    // Close delete modal on overlay click
     deleteModal.addEventListener('click', (e) => {
         if (e.target === deleteModal) {
             closeDeleteModal();
         }
     });
 
-    // Close modal on Escape key
+    // Edit Modal events
+    editModalCloseBtn.addEventListener('click', closeEditModal);
+    editModalCancelBtn.addEventListener('click', closeEditModal);
+    editForm.addEventListener('submit', saveProjectEdit);
+
+    // Close edit modal on overlay click
+    editModal.addEventListener('click', (e) => {
+        if (e.target === editModal) {
+            closeEditModal();
+        }
+    });
+
+    // Close modals on Escape key
     document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && !deleteModal.classList.contains('hidden')) {
-            closeDeleteModal();
+        if (e.key === 'Escape') {
+            if (!deleteModal.classList.contains('hidden')) {
+                closeDeleteModal();
+            }
+            if (!editModal.classList.contains('hidden')) {
+                closeEditModal();
+            }
         }
     });
 }
@@ -354,9 +509,89 @@ function initEventListeners() {
 // Initialization
 // ===========================
 
-function init() {
+/**
+ * Checks if user is authenticated
+ * @returns {boolean} True if authenticated
+ */
+function isAuthenticated() {
+    return sessionStorage.getItem(ADMIN_SESSION_KEY) === 'true';
+}
+
+/**
+ * Sets authentication status
+ * @param {boolean} authenticated - Authentication status
+ */
+function setAuthenticated(authenticated) {
+    if (authenticated) {
+        sessionStorage.setItem(ADMIN_SESSION_KEY, 'true');
+    } else {
+        sessionStorage.removeItem(ADMIN_SESSION_KEY);
+    }
+}
+
+/**
+ * Shows the admin panel (hides login overlay)
+ */
+function showAdminPanel() {
+    loginOverlay.classList.add('hidden');
     initEventListeners();
     fetchProjects();
+}
+
+/**
+ * Handles login form submission
+ * @param {Event} event - Submit event
+ */
+async function handleLogin(event) {
+    event.preventDefault();
+
+    const password = loginPassword.value.trim();
+
+    if (!password) {
+        loginError.classList.remove('hidden');
+        return;
+    }
+
+    // Show loading state
+    const submitBtn = loginForm.querySelector('button[type="submit"]');
+    submitBtn.classList.add('loading');
+    submitBtn.disabled = true;
+    loginError.classList.add('hidden');
+
+    try {
+        const response = await ApiService.verifyAdminPassword(password);
+
+        if (response.success) {
+            setAuthenticated(true);
+            showAdminPanel();
+        } else {
+            loginError.classList.remove('hidden');
+            loginPassword.value = '';
+            loginPassword.focus();
+        }
+    } catch (error) {
+        console.error('Login error:', error);
+        loginError.classList.remove('hidden');
+        loginPassword.value = '';
+        loginPassword.focus();
+    } finally {
+        submitBtn.classList.remove('loading');
+        submitBtn.disabled = false;
+    }
+}
+
+/**
+ * Initializes the admin page
+ */
+function init() {
+    // Check if already authenticated
+    if (isAuthenticated()) {
+        showAdminPanel();
+    } else {
+        // Set up login form
+        loginForm.addEventListener('submit', handleLogin);
+        loginPassword.focus();
+    }
 }
 
 // Start when DOM is ready

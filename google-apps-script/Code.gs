@@ -13,19 +13,23 @@
 
 const SHEET_NAME = 'Projects';
 
+// Admin password (change this to your secure password)
+const ADMIN_PASSWORD = 'iti2026';
+
 // Column mapping (0-indexed)
 const COL = {
     ID: 0,
     TITLE: 1,
     TEAM: 2,
     DESC: 3,
-    LINK: 4,
-    STATUS: 5,
-    EMAIL: 6,
-    VISIBLE: 7,
-    ADMIN_NOTES: 8,
-    CREATED_AT: 9,
-    UPDATED_AT: 10
+    GITHUB: 4,
+    DEMO: 5,
+    STATUS: 6,
+    EMAIL: 7,
+    VISIBLE: 8,
+    ADMIN_NOTES: 9,
+    CREATED_AT: 10,
+    UPDATED_AT: 11
 };
 
 // ===========================
@@ -78,6 +82,8 @@ function doPost(e) {
                 return response(updateVisibility(data.id, data.visible, data.adminNotes));
             case 'delete':
                 return response(deleteProject(data.id));
+            case 'verifyAdmin':
+                return response(verifyAdminPassword(data.password));
             default:
                 return response({ error: 'Invalid action' });
         }
@@ -115,7 +121,8 @@ function getAllProjects(visibleOnly = true) {
             title: r[COL.TITLE],
             team: r[COL.TEAM],
             description: r[COL.DESC],
-            link: r[COL.LINK],
+            github: r[COL.GITHUB],
+            demo: r[COL.DEMO],
             status: r[COL.STATUS],
             visible: r[COL.VISIBLE] === true,
             createdAt: r[COL.CREATED_AT],
@@ -149,7 +156,8 @@ function createProject(data) {
         data.title || '',
         data.team || '',
         data.description || '',
-        data.link || '',
+        data.github || '',
+        data.demo || '',
         data.status || 'Not Started',
         data.email || '',
         true, // Visible by default
@@ -184,7 +192,8 @@ function updateProject(data) {
             if (data.title !== undefined) sheet.getRange(row, COL.TITLE + 1).setValue(data.title);
             if (data.team !== undefined) sheet.getRange(row, COL.TEAM + 1).setValue(data.team);
             if (data.description !== undefined) sheet.getRange(row, COL.DESC + 1).setValue(data.description);
-            if (data.link !== undefined) sheet.getRange(row, COL.LINK + 1).setValue(data.link);
+            if (data.github !== undefined) sheet.getRange(row, COL.GITHUB + 1).setValue(data.github);
+            if (data.demo !== undefined) sheet.getRange(row, COL.DEMO + 1).setValue(data.demo);
             if (data.status !== undefined) sheet.getRange(row, COL.STATUS + 1).setValue(data.status);
             
             // Update timestamp
@@ -220,7 +229,8 @@ function lookupByEmail(email) {
                 title: r[COL.TITLE],
                 team: r[COL.TEAM],
                 description: r[COL.DESC],
-                link: r[COL.LINK],
+                github: r[COL.GITHUB],
+                demo: r[COL.DEMO],
                 status: r[COL.STATUS],
                 visible: r[COL.VISIBLE] === true
             });
@@ -281,6 +291,18 @@ function deleteProject(id) {
     return { error: 'Project not found' };
 }
 
+/**
+ * Verifies admin password
+ * @param {string} password - Password to verify
+ * @returns {Object} Success or error response
+ */
+function verifyAdminPassword(password) {
+    if (password === ADMIN_PASSWORD) {
+        return { success: true };
+    }
+    return { error: 'Invalid password' };
+}
+
 // ===========================
 // Helpers
 // ===========================
@@ -335,7 +357,7 @@ function setupDatabase() {
     // Define Headers
     const headers = [
         'ID', 'Title', 'Team Members', 'Description', 
-        'Link', 'Status', 'Email', 'Visible', 'Admin Notes',
+        'GitHub', 'Demo', 'Status', 'Email', 'Visible', 'Admin Notes',
         'Created At', 'Updated At'
     ];
     
@@ -356,7 +378,8 @@ function setupDatabase() {
     sheet.setColumnWidth(COL.TITLE + 1, 200);
     sheet.setColumnWidth(COL.TEAM + 1, 200);
     sheet.setColumnWidth(COL.DESC + 1, 300);
-    sheet.setColumnWidth(COL.LINK + 1, 200);
+    sheet.setColumnWidth(COL.GITHUB + 1, 200);
+    sheet.setColumnWidth(COL.DEMO + 1, 200);
     sheet.setColumnWidth(COL.STATUS + 1, 120);
     sheet.setColumnWidth(COL.EMAIL + 1, 200);
     sheet.setColumnWidth(COL.VISIBLE + 1, 80);
