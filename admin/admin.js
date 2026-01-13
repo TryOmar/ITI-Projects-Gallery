@@ -592,15 +592,35 @@ async function handleLogin(event) {
 /**
  * Initializes the admin page
  */
-function init() {
-    // Check if already authenticated
+async function init() {
+    // Check if presumably authenticated
     if (isAuthenticated()) {
-        showAdminPanel();
-    } else {
-        // Set up login form
-        loginForm.addEventListener('submit', handleLogin);
-        loginPassword.focus();
+        const storedPassword = sessionStorage.getItem(ADMIN_PASSWORD_KEY);
+
+        if (storedPassword) {
+            // Verify if the stored password is still valid
+            try {
+                // We verify by attempting to fetch the project list which requires auth
+                // or we could use the verify endpoint. Using verify is cleaner.
+                const response = await ApiService.verifyAdminPassword(storedPassword);
+
+                if (response.success) {
+                    showAdminPanel();
+                    return;
+                }
+            } catch (e) {
+                console.warn("Session validation failed", e);
+            }
+        }
+
+        // If we get here, authentication failed or password wasn't stored
+        setAuthenticated(false);
     }
+
+    // Set up login form (Default state)
+    loginForm.addEventListener('submit', handleLogin);
+    loginPassword.focus();
+}
 }
 
 // Start when DOM is ready
