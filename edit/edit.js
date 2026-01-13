@@ -23,6 +23,8 @@ const errorMessage = document.getElementById('error-message');
 const navbar = document.getElementById('navbar');
 const navbarToggle = document.getElementById('navbar-toggle');
 const navbarNav = document.getElementById('navbar-nav');
+const teamMembersContainer = document.getElementById('team-members-container');
+const addMemberBtn = document.getElementById('add-member-btn');
 
 // Edit form fields
 const editFields = {
@@ -42,6 +44,7 @@ const editFields = {
 let userProjects = [];
 let selectedProject = null;
 let userEmail = '';
+let memberCount = 0;
 
 // ===========================
 // UI Functions
@@ -166,6 +169,92 @@ function resetPage() {
     selectedProject = null;
     hideAlerts();
     clearAllErrors();
+
+    // Reset team members
+    if (teamMembersContainer) {
+        teamMembersContainer.innerHTML = '';
+        memberCount = 0;
+    }
+}
+
+// ===========================
+// Team Members Management
+// ===========================
+
+/**
+ * Updates the hidden team field with comma-separated member names
+ */
+function updateTeamField() {
+    const memberInputs = document.querySelectorAll('.team-member-input');
+    const members = Array.from(memberInputs)
+        .map(input => input.value.trim())
+        .filter(value => value !== '');
+
+    editFields.team.value = members.join(', ');
+    updateRemoveButtons();
+}
+
+/**
+ * Updates the state of remove buttons (disable if only one member)
+ */
+function updateRemoveButtons() {
+    const removeButtons = document.querySelectorAll('.btn-remove-member');
+    const shouldDisable = removeButtons.length <= 1;
+
+    removeButtons.forEach(btn => {
+        btn.disabled = shouldDisable;
+    });
+}
+
+/**
+ * Adds a new team member input field
+ * @param {string} value - Initial value (optional)
+ */
+function addTeamMember(value = '') {
+    const newMemberGroup = document.createElement('div');
+    newMemberGroup.className = 'team-member-input-group';
+    newMemberGroup.innerHTML = `
+        <input 
+            type="text" 
+            class="form-input team-member-input"
+            placeholder="e.g., Ahmed" 
+            value="${Utils.escapeHtml(value)}"
+            data-member-index="${memberCount}">
+        <button type="button" class="btn-remove-member" aria-label="Remove member">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+            </svg>
+        </button>
+    `;
+
+    teamMembersContainer.appendChild(newMemberGroup);
+    memberCount++;
+
+    // Add event listeners to the new input and button
+    const newInput = newMemberGroup.querySelector('.team-member-input');
+    const newRemoveBtn = newMemberGroup.querySelector('.btn-remove-member');
+
+    newInput.addEventListener('input', updateTeamField);
+    newRemoveBtn.addEventListener('click', () => removeTeamMember(newMemberGroup));
+
+    // Only focus if adding manually (no value passed)
+    if (!value) {
+        newInput.focus();
+    }
+
+    updateRemoveButtons();
+}
+
+/**
+ * Removes a team member input field
+ * @param {HTMLElement} memberGroup - The member group element to remove
+ */
+function removeTeamMember(memberGroup) {
+    if (teamMembersContainer.children.length > 1) {
+        memberGroup.remove();
+        updateTeamField();
+        updateRemoveButtons();
+    }
 }
 
 // ===========================
@@ -294,11 +383,28 @@ function populateEditForm(project) {
     editFields.title.value = project.title || '';
     editFields.status.value = project.status || 'Not Started';
     editFields.description.value = project.description || '';
-    editFields.team.value = project.team || '';
+    editFields.team.value = project.team || ''; // Hidden field
     editFields.github.value = project.github || '';
     editFields.demo.value = project.demo || '';
     editFields.projectId.value = project.id;
     editFields.email.value = userEmail;
+
+    // Populate team members
+    teamMembersContainer.innerHTML = '';
+    memberCount = 0;
+
+    if (project.team) {
+        const members = project.team.split(',').map(m => m.trim()).filter(m => m);
+        if (members.length > 0) {
+            members.forEach(member => {
+                addTeamMember(member);
+            });
+        } else {
+            addTeamMember();
+        }
+    } else {
+        addTeamMember();
+    }
 }
 
 // ===========================
@@ -453,6 +559,11 @@ function initEventListeners() {
 
     // Cancel button
     cancelBtn.addEventListener('click', handleCancel);
+
+    // Add member button
+    if (addMemberBtn) {
+        addMemberBtn.addEventListener('click', () => addTeamMember());
+    }
 
     // Clear errors on input
     Object.values(editFields).forEach(field => {

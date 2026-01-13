@@ -125,12 +125,17 @@
 
                         <!-- Team Members -->
                         <div class="form-group">
-                            <label for="edit-team" class="form-label">
+                            <label class="form-label">
                                 Team Members <span class="required">*</span>
                             </label>
-                            <input type="text" id="edit-team" name="team" class="form-input"
-                                placeholder="e.g., Ahmed, Sara, Mohamed">
-                            <span class="helper-text">Separate team member names with commas</span>
+                            <div id="team-members-container" class="team-members-container">
+                                <!-- Dynamic inputs will go here -->
+                            </div>
+                            <button type="button" id="add-member-btn" class="btn-add-member">
+                                <i class="bi bi-plus-circle" aria-hidden="true"></i>
+                                Add Member
+                            </button>
+                            <input type="hidden" id="edit-team" name="team" required>
                             <span class="error-message" id="team-error"></span>
                         </div>
 
