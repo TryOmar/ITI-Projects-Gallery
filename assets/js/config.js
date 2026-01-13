@@ -18,7 +18,7 @@ const CONFIG = {
     API: {
         // Local testing server (run from /server folder)
         LOCAL: 'http://localhost:3000/api',
-        PRODUCTION: 'https://script.google.com/macros/s/AKfycby2zHkVnimyonJi0rF2AKtqHwfJFPfDLDQ2pgRN7vYaBy5dDojJyvTbMT-WycEFZm8/exec'
+        PRODUCTION: 'https://script.google.com/macros/s/AKfycbz6oQMmZ5kF5eDZHiIXuER1DDhoiDIIJtRQZ8jCm-mo4R4sgR3qIbk9sSKw9WkV95Q/exec'
     },
 
     // Project Status Options
