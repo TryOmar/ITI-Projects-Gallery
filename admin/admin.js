@@ -13,6 +13,7 @@ const loginError = document.getElementById('login-error');
 
 // Session key for admin access (stored in sessionStorage)
 const ADMIN_SESSION_KEY = 'iti_admin_authenticated';
+const ADMIN_PASSWORD_KEY = 'iti_admin_password';
 
 // ===========================
 // DOM Elements
@@ -523,12 +524,17 @@ function isAuthenticated() {
 /**
  * Sets authentication status
  * @param {boolean} authenticated - Authentication status
+ * @param {string} [password] - Admin password (required if authenticated is true)
  */
-function setAuthenticated(authenticated) {
+function setAuthenticated(authenticated, password) {
     if (authenticated) {
         sessionStorage.setItem(ADMIN_SESSION_KEY, 'true');
+        if (password) {
+            sessionStorage.setItem(ADMIN_PASSWORD_KEY, password);
+        }
     } else {
         sessionStorage.removeItem(ADMIN_SESSION_KEY);
+        sessionStorage.removeItem(ADMIN_PASSWORD_KEY);
     }
 }
 
@@ -565,7 +571,7 @@ async function handleLogin(event) {
         const response = await ApiService.verifyAdminPassword(password);
 
         if (response.success) {
-            setAuthenticated(true);
+            setAuthenticated(true, password);
             showAdminPanel();
         } else {
             loginError.classList.remove('hidden');
