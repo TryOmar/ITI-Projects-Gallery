@@ -18,7 +18,7 @@ const CONFIG = {
     API: {
         // Local testing server (run from /server folder)
         LOCAL: 'http://localhost:3000/api',
-        PRODUCTION: 'https://script.google.com/macros/s/AKfycbzUGjRhQuIitDyNojJ6gmC2p0CXcfk65dkIizf2pqh9h6NXsMpekWFL9M2LUjZMZo0/exec'
+        PRODUCTION: 'https://script.google.com/macros/s/AKfycbzJ0lL3fN2XIZkoCSKRvyPkRkmZUZjnrg6NkMaik0CqEP3epeG2Z3mSsgSU6wQYkMY/exec'
     },
 
     // Project Status Options
@@ -87,7 +87,11 @@ const ApiService = {
      */
     async request(endpoint, options = {}) {
         const baseUrl = getApiUrl();
-        const url = CONFIG.ENV === 'LOCAL' ? `${baseUrl}${endpoint}` : baseUrl;
+        // In PRODUCTION, endpoint acts as the query string (e.g., ?action=...)
+        // In LOCAL, endpoint is the path (e.g., /projects)
+        const url = CONFIG.ENV === 'LOCAL'
+            ? `${baseUrl}${endpoint}`
+            : `${baseUrl}${endpoint}`;
 
         const defaultOptions = {
             headers: {

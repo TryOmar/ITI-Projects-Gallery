@@ -72,10 +72,13 @@ let projectToEdit = null;
 /**
  * Shows loading state
  */
+/**
+ * Shows loading state
+ */
 function showLoading() {
     loadingContainer.classList.remove('hidden');
     errorContainer.classList.add('hidden');
-    tableContainer.classList.add('hidden');
+    tableContainer.classList.add('hidden'); // Hide the table while loading
 }
 
 /**
@@ -96,6 +99,10 @@ function showTable() {
     loadingContainer.classList.add('hidden');
     errorContainer.classList.add('hidden');
     tableContainer.classList.remove('hidden');
+    // Ensure animation triggers
+    tableContainer.style.animation = 'none';
+    tableContainer.offsetHeight; /* trigger reflow */
+    tableContainer.style.animation = 'fadeInUp 0.5s ease-out';
 }
 
 /**
@@ -593,15 +600,25 @@ async function handleLogin(event) {
  * Initializes the admin page
  */
 async function init() {
-    // Check if presumably authenticated
+    // Start with loading state if we have a session to check
     if (isAuthenticated()) {
         const storedPassword = sessionStorage.getItem(ADMIN_PASSWORD_KEY);
 
         if (storedPassword) {
+            // Show loading on the login button/overlay to indicate validaton
+            // Or ideally, hide the login form content and show a spinner
+
+            // Let's modify the login overlay to show loading state
+            const loginModal = document.querySelector('.login-modal');
+            const originalContent = loginModal.innerHTML;
+
+            loginModal.innerHTML = `
+                <div class="loading-spinner" style="margin: 0 auto;"></div>
+                <p style="margin-top: 1rem;">Verifying session...</p>
+            `;
+
             // Verify if the stored password is still valid
             try {
-                // We verify by attempting to fetch the project list which requires auth
-                // or we could use the verify endpoint. Using verify is cleaner.
                 const response = await ApiService.verifyAdminPassword(storedPassword);
 
                 if (response.success) {
@@ -611,16 +628,25 @@ async function init() {
             } catch (e) {
                 console.warn("Session validation failed", e);
             }
+
+            // Restore login form if validation failed
+            loginModal.innerHTML = originalContent;
+
+            // Re-attach event listeners since we nuked the DOM
+            document.getElementById('login-form').addEventListener('submit', handleLogin);
         }
 
-        // If we get here, authentication failed or password wasn't stored
+        // If we get here, authentication failed
         setAuthenticated(false);
     }
 
     // Set up login form (Default state)
-    loginForm.addEventListener('submit', handleLogin);
-    loginPassword.focus();
-}
+    // We need to re-query elements because we might have replaced innerHTML above
+    const form = document.getElementById('login-form');
+    if (form) {
+        form.addEventListener('submit', handleLogin);
+        document.getElementById('admin-password').focus();
+    }
 }
 
 // Start when DOM is ready
