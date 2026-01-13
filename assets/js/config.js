@@ -2,22 +2,15 @@
  * ITI Projects Gallery - Configuration
  * 
  * This file contains all configuration settings for the application.
- * Switch between LOCAL and PRODUCTION modes for development/deployment.
- * 
- * LOCAL MODE: Uses the local testing server in /server folder
- *             Run: cd server && node server.js
- * 
- * PRODUCTION MODE: Uses Google Apps Script backend
+ * Optimized for production using Google Apps Script backend.
  */
 
 const CONFIG = {
-    // Environment: 'LOCAL' for development, 'PRODUCTION' for Google Apps Script
+    // Environment
     ENV: 'PRODUCTION',
 
     // API Endpoints
     API: {
-        // Local testing server (run from /server folder)
-        LOCAL: 'http://localhost:3000/api',
         PRODUCTION: 'https://script.google.com/macros/s/AKfycbzJ0lL3fN2XIZkoCSKRvyPkRkmZUZjnrg6NkMaik0CqEP3epeG2Z3mSsgSU6wQYkMY/exec'
     },
 
@@ -68,11 +61,11 @@ const CONFIG = {
 };
 
 /**
- * Gets the current API base URL based on environment
+ * Gets the current API base URL
  * @returns {string} API base URL
  */
 function getApiUrl() {
-    return CONFIG.ENV === 'LOCAL' ? CONFIG.API.LOCAL : CONFIG.API.PRODUCTION;
+    return CONFIG.API.PRODUCTION;
 }
 
 /**
@@ -86,16 +79,11 @@ const ApiService = {
      * @returns {Promise<Object>} API response
      */
     async request(endpoint, options = {}) {
-        const baseUrl = getApiUrl();
-        // In PRODUCTION, endpoint acts as the query string (e.g., ?action=...)
-        // In LOCAL, endpoint is the path (e.g., /projects)
-        const url = CONFIG.ENV === 'LOCAL'
-            ? `${baseUrl}${endpoint}`
-            : `${baseUrl}${endpoint}`;
+        const url = `${getApiUrl()}${endpoint}`;
 
         const defaultOptions = {
             headers: {
-                'Content-Type': CONFIG.ENV === 'LOCAL' ? 'application/json' : 'text/plain'
+                'Content-Type': 'text/plain'
             }
         };
 

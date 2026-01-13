@@ -1,26 +1,36 @@
 # ITI Projects Gallery
+**Version 1.0** | **December 2026**
 
-A modern, responsive web application designed for ITI students to showcase their coding projects, track progress, and manage submissions through a centralized hub.
+## Project Overview
+ITI Projects Gallery is a web-based system designed to showcase projects created by ITI students during their 9-month training program. The system provides an easy-to-use interface for project submission and editing while maintaining a lightweight infrastructure.
 
-## 🚀 Features
+The application uses a serverless architecture, leveraging Google Sheets as the database and Google Apps Script as the API layer, eliminating the need for traditional backend servers.
 
-- **Project Gallery**: A clean, animated grid view of all approved student projects.
-- **Easy Submission**: Dynamic form for students to submit project details, team members, and links.
-- **Self-Service Editing**: Secure project updates using email-based lookup.
-- **Admin Moderation**: A password-protected panel for visibility management and project moderation.
-- **Optimized UX**: Real-time validation, loading states, and toast notifications.
-- **Modern Design**: Responsive UI with dark mode support and premium aesthetics.
+## Project Objectives
+* Enable students to submit projects through a simple web interface.
+* Allow students to edit their project submissions after the initial entry.
+* Display approved projects in a publicly accessible gallery.
+* Maintain a lightweight backend infrastructure using Google Sheets.
+* Implement administration and moderation capabilities for visibility control.
 
-## 🛠️ Tech Stack
+## Technology Stack
+* **Frontend:** HTML5, CSS3, Vanilla JavaScript.
+* **Backend:** Google Apps Script (API Layer).
+* **Database:** Google Sheets (Persistence Layer).
+* **Hosting:** Static hosting (GitHub Pages / Netlify).
 
-- **Frontend**: Vanilla HTML5, CSS3 (Modern Flex/Grid), and JavaScript (ES6+).
-- **Backend/API**: 
-  - Google Apps Script (Production)
-  - Node.js Mock Server (Local Development)
-- **Database**: Google Sheets (used as a lightweight database).
+## System Architecture
+The application consists of the following core components:
 
-## 👥 Team Members
+| Page | Filename | Primary Function |
+|------|----------|------------------|
+| Gallery | index.html | Displays visible projects with search and filters. |
+| Submission | submit/index.html | Interface for creating new project entries. |
+| Edit | edit/index.html | Allows users to update their existing projects. |
+| Admin | admin/index.html | Moderation interface for visibility control. |
+| About | about/index.html | System documentation and project information. |
 
+## Team Members
 This project was developed by:
 
 1. **Omar Abdelrahman Abbas Abdelmotalib**
@@ -30,17 +40,4 @@ This project was developed by:
 5. **Mahmoud Ashraf Mahmoud Labib**
 
 ---
-
-### 💻 Local Development
-
-1. Clone the repository.
-2. Ensure you have [Node.js](https://nodejs.org/) installed.
-3. Run the mock server for testing:
-   ```bash
-   cd server
-   node server.js
-   ```
-4. Change the environment to `LOCAL` in `assets/js/config.js`.
-5. Open `index.html` in your browser.
-
-© 2026 ITI Projects Gallery. Built with passion for the ITI community.
+© 2026 ITI Projects Gallery. Developed for the ITI community.
